@@ -118,6 +118,29 @@ Error generating stack: `+l.message+`
 </script>
 
     <div id="root"></div>
+    <div id="checkout-btn-wrapper" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 40px; width: 100%; position: relative; z-index: 50;">
+        <a href="#" class="checkout-btn" onclick="window.umami.track('click_checkout')">SÍ, QUIERO ASEGURAR MI ACCESO AHORA</a>
+    </div>
+    <script>
+        let btnShown = false;
+        setInterval(() => {
+            if(btnShown) return;
+            try {
+                if(window.smartplayer && window.smartplayer.instances && window.smartplayer.instances[0]) {
+                    if(window.smartplayer.instances[0].video.currentTime >= 355) {
+                        const btn = document.getElementById('checkout-btn-wrapper');
+                        btn.style.display = 'block';
+                        const vslSection = document.querySelector('.vsl-section');
+                        if (vslSection && btn.parentElement !== vslSection) {
+                            vslSection.appendChild(btn);
+                        }
+                        btnShown = true;
+                    }
+                }
+            } catch(e) {}
+        }, 1000);
+    </script>
+
     <script defer src="https://manus-analytics.com/umami" data-website-id="c6c391c6-4be4-4878-a691-0f1ffd2940d9"></script>
   <manus-content-root></manus-content-root><script>
 			var __manus_space_editor_info = {
