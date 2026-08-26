@@ -28,11 +28,22 @@
       window.umami = {
           track: function(eventName, props) {
               console.log("Supabase Tracking event:", eventName);
-              supabaseClient.from('funnel_events').insert([{
-                  offer_id: 'latam',
-                  event_type: eventName,
-                  session_id: sessionId
-              }]).then(res => { if(res.error) console.error("Supabase Error", res.error); });
+              const row = { offer_id: 'latam', event_type: eventName, session_id: sessionId };
+
+              function attempt(retriesLeft) {
+                  supabaseClient.from('funnel_events').insert([row])
+                      .then(res => {
+                          if (res.error) {
+                              console.error("Supabase Error", res.error);
+                              if (retriesLeft > 0) setTimeout(() => attempt(retriesLeft - 1), 1200);
+                          }
+                      })
+                      .catch(err => {
+                          console.error("Supabase Insert Failed", err);
+                          if (retriesLeft > 0) setTimeout(() => attempt(retriesLeft - 1), 1200);
+                      });
+              }
+              attempt(2);
           }
       };
 
@@ -120,7 +131,7 @@ Error generating stack: `+l.message+`
 
     <div id="root"></div>
     <div id="checkout-btn-wrapper" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 40px; width: 100%; position: relative; z-index: 50;">
-        <a href="https://pay.hotmart.com/X107273554Q?checkoutMode=10" class="checkout-btn" onclick="window.umami.track('click_checkout')">SÍ, QUIERO ASEGURAR MI ACCESO AHORA</a>
+        <a href="https://pay.hotmart.com/O107334406Q?checkoutMode=10&bid=1787748171026" class="checkout-btn" onclick="window.umami.track('click_checkout')">SÍ, QUIERO ASEGURAR MI ACCESO AHORA</a>
     </div>
     <script>
         let btnShown = false;
