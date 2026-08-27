@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pompoarismo de las Diosas | Sofía Vilar</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --surface: #ffffff;
+      --surface-soft: #fff4f1;
+      --ink: #211f20;
+      --muted: #665f61;
+      --line: #dfd7d3;
+      --red: #d83a2f;
+      --red-dark: #a32620;
+      --teal: #153d3a;
+      --teal-soft: #e8f0ee;
+      --gold: #b9822d;
+      --shadow: 0 20px 60px rgba(29, 28, 27, 0.13);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      width: 100%;
+      max-width: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+      letter-spacing: 0;
+      overflow-x: hidden;
+      background:
+        linear-gradient(180deg, rgba(216, 58, 47, 0.08), rgba(21, 61, 58, 0.04) 32%, transparent 72%),
+        var(--bg);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(820px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 16px 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      align-items: start;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .conversion-hero {
+      padding: 10px 0 0;
+      text-align: center;
+      border: 0;
+      border-radius: var(--radius);
+      background: transparent;
+      box-shadow: none;
+      min-width: 0;
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      margin: 0;
+      padding: 5px 9px;
+      color: #211f20;
+      font-size: 0.78rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #fff06a, #ffb35c, #ff7670, #ffd86b, #fff06a);
+      background-size: 320% 100%;
+      box-shadow: 0 0 0 1px rgba(163, 38, 32, 0.1), 0 8px 22px rgba(216, 58, 47, 0.16);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.36);
+      animation: highlightShift 1800ms linear infinite;
+    }
+
+    h1 {
+      margin: 6px auto 0;
+      font-size: clamp(2rem, 4.9vw, 4rem);
+      line-height: 0.95;
+      letter-spacing: 0;
+      max-width: 18ch;
+    }
+
+    .danger-highlight {
+      color: var(--red-dark);
+    }
+
+    .hero-copy {
+      max-width: 31rem;
+      margin: 8px auto 0;
+      color: var(--muted);
+      font-size: 1rem;
+      overflow-wrap: break-word;
+    }
+
+    .hero-copy strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--red-dark);
+      font-size: 1.05rem;
+      font-weight: 900;
+      overflow-wrap: break-word;
+    }
+
+    .chat-shell {
+      min-height: min(500px, calc(100vh - 270px));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-width: 0;
+    }
+
+    .chat-header {
+      padding: 16px 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #fff;
+      background: var(--surface-soft);
+      box-shadow: 0 0 0 1px var(--line), 0 8px 18px rgba(216, 58, 47, 0.18);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 24%;
+      display: block;
+    }
+
+    .profile h2 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .profile p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .status-pill {
+      min-width: max-content;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .progress {
+      height: 3px;
+      background: #eee6e3;
+    }
+
+    .progress-bar {
+      width: 8%;
+      height: 100%;
+      background: var(--red);
+      transition: width 280ms ease;
+    }
+
+    .messages {
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 22px 18px 28px;
+      background:
+        linear-gradient(180deg, rgba(255, 244, 241, 0.58), rgba(255, 255, 255, 0) 180px),
+        var(--surface);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin: 0 0 12px;
+      align-items: flex-end;
+      min-width: 0;
+      animation: rise 220ms ease-out;
+    }
+
+    .row.user {
+      justify-content: flex-end;
+    }
+
+    .mini-avatar {
+      display: none;
+    }
+
+    .bubble {
+      max-width: min(570px, 86%);
+      padding: 12px 14px;
+      border-radius: 16px 16px 16px 6px;
+      background: #f3f0ed;
+      color: var(--ink);
+      font-size: 0.96rem;
+      white-space: pre-line;
+    }
+
+    .bubble.user {
+      max-width: min(520px, 88%);
+      border-radius: 16px 16px 6px 16px;
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .bubble.offer {
+      width: min(540px, 90%);
+      max-width: min(540px, 90%);
+      padding: 0;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .offer-head {
+      padding: 16px;
+      background: var(--surface-soft);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .offer-head strong {
+      display: block;
+      font-size: 1.08rem;
+    }
+
+    .offer-head span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .offer-body {
+      padding: 14px 16px 16px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 9px;
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stack li {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 9px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--teal);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .price del {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .price strong {
+      color: var(--red-dark);
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .typing {
+      width: 58px;
+      padding: 11px 12px;
+      display: inline-flex;
+      gap: 4px;
+      border-radius: 14px 14px 14px 5px;
+      background: #f3f0ed;
+    }
+
+    .typing span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.65;
+      animation: blink 960ms infinite;
+    }
+
+    .typing span:nth-child(2) {
+      animation-delay: 120ms;
+    }
+
+    .typing span:nth-child(3) {
+      animation-delay: 240ms;
+    }
+
+    .composer {
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+      padding: 16px 18px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+    }
+
+    .choice {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--ink);
+      text-align: left;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .choice:hover,
+    .choice:focus-visible {
+      border-color: var(--red);
+      background: var(--surface-soft);
+      outline: 0;
+      transform: translateY(-1px);
+    }
+
+    .choice.primary {
+      border-color: var(--red);
+      background: var(--red);
+      color: #fff;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .choice.primary:hover,
+    .choice.primary:focus-visible {
+      background: var(--red-dark);
+    }
+
+    .choice.secondary {
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .hotmart-slot {
+      margin-top: 10px;
+      padding: 12px;
+      border: 1px dashed #c9bbb6;
+      border-radius: var(--radius);
+      background: #fbfaf8;
+    }
+
+    .slot-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .demo-video-card {
+      width: min(540px, 90%);
+      max-width: min(540px, 90%);
+      padding: 0;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .demo-video-card .offer-head {
+      background: linear-gradient(135deg, #fff4f1, #fffaf6);
+    }
+
+    .demo-kicker {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--red-dark);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .vturb-frame {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #211f20;
+    }
+
+    .vturb-frame vturb-smartplayer {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .vturb-player-placeholder {
+      position: relative;
+      width: 100%;
+      padding: 125% 0 0;
+      z-index: 0;
+      background: #000;
+    }
+
+    .video-caption {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .demo-video-card {
+        width: min(86vw, 340px);
+        max-width: min(86vw, 340px);
+      }
+    }
+
+    .modal {
+      width: min(430px, calc(100% - 32px));
+      border: 0;
+      border-radius: var(--radius);
+      padding: 0;
+      box-shadow: var(--shadow);
+    }
+
+    .modal::backdrop {
+      background: rgba(33, 31, 32, 0.44);
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .modal-body h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .modal-body p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% {
+        transform: translateY(0);
+        opacity: 0.38;
+      }
+      40% {
+        transform: translateY(-3px);
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes highlightShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 320% 50%;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .page {
+        padding: 16px 0;
+      }
+
+      h1 {
+        max-width: 16ch;
+      }
+
+      .chat-shell {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: 100vw;
+        max-width: 100vw;
+        min-height: 100vh;
+        padding: 0;
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .conversion-hero {
+        width: 100vw;
+        max-width: 100vw;
+        padding: 16px 18px 8px;
+      }
+
+      h1 {
+        font-size: clamp(1.75rem, 9vw, 2.45rem);
+        max-width: 12ch;
+      }
+
+      .hero-copy {
+        font-size: 0.96rem;
+        width: auto;
+        max-width: 320px;
+      }
+
+      .chat-shell {
+        width: 100vw;
+        max-width: 100vw;
+        min-height: calc(100vh - 264px);
+        border: 0;
+        border-radius: 0;
+      }
+
+      .status-pill {
+        display: none;
+      }
+
+      .messages {
+        padding: 18px 12px 24px;
+      }
+
+      .composer {
+        padding: 12px;
+      }
+
+      .bubble {
+        max-width: min(83vw, 330px);
+        min-width: 0;
+        overflow-wrap: break-word;
+      }
+
+      .bubble.user {
+        max-width: min(86vw, 340px);
+      }
+
+      .bubble.offer {
+        width: min(86vw, 340px);
+        max-width: min(86vw, 340px);
+      }
+    }
+
+    @media (max-width: 360px) {
+      h1,
+      .hero-copy {
+        width: 284px;
+        max-width: 284px;
+      }
+    }
+    .confirmation-topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border: 1px solid rgba(183, 246, 207, .3);
+      border-radius: 999px;
+      color: #d9fdd3;
+      background: rgba(37, 211, 102, .14);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .confirmation-check {
+      display: grid;
+      width: 18px;
+      height: 18px;
+      place-items: center;
+      border-radius: 50%;
+      color: #075e54;
+      background: #d9fdd3;
+      font-size: .75rem;
+    }
+
+    .order-status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 560px;
+      margin-top: 18px;
+    }
+
+    .order-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+      padding: 9px 10px;
+      border: 1px solid rgba(255, 255, 255, .13);
+      border-radius: 9px;
+      color: rgba(255, 255, 255, .78);
+      background: rgba(0, 0, 0, .1);
+      font-size: .74rem;
+    }
+
+    .order-status strong {
+      flex: 0 0 auto;
+      color: #b7f6cf;
+      font-size: 1rem;
+    }
+
+    .order-status span {
+      overflow-wrap: anywhere;
+    }
+
+    /* WhatsApp-inspired conversion layer */
+    body {
+      background-color: #d9dbd5;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.24) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 70%, rgba(90,100,90,.12) 0 1px, transparent 1.5px),
+        linear-gradient(135deg, rgba(255,255,255,.16) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.16) 50%, rgba(255,255,255,.16) 75%, transparent 75%);
+      background-size: 34px 34px, 46px 46px, 92px 92px;
+    }
+
+    .page {
+      width: min(760px, calc(100% - 28px));
+      padding: 24px 0 34px;
+      gap: 0;
+    }
+
+    .conversion-hero {
+      padding: 20px 22px 18px;
+      text-align: left;
+      border-radius: 16px 16px 0 0;
+      background: #075e54;
+      box-shadow: 0 14px 28px rgba(39, 55, 50, .16);
+    }
+
+    .hero-kicker {
+      padding: 0;
+      color: #b7f6cf;
+      font-size: .7rem;
+      letter-spacing: .11em;
+      background: none;
+      box-shadow: none;
+      text-shadow: none;
+      animation: none;
+    }
+
+    h1 {
+      max-width: 20ch;
+      margin: 8px 0 0;
+      color: #fff;
+      font-size: clamp(1.9rem, 4.2vw, 3.35rem);
+      line-height: 1;
+    }
+
+    .danger-highlight {
+      color: #b7f6cf;
+    }
+
+    .hero-copy {
+      max-width: 38rem;
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, .8);
+      font-size: .94rem;
+    }
+
+      .hero-copy strong {
+        margin-bottom: 0;
+        color: #fff;
+        font-size: 1rem;
+      }
+
+    .chat-shell {
+      min-height: min(650px, calc(100vh - 210px));
+      border: 0;
+      border-radius: 0 0 16px 16px;
+      background: #efeae2;
+      box-shadow: 0 18px 36px rgba(39, 55, 50, .2);
+    }
+
+    .chat-header {
+      padding: 12px 16px;
+      border-bottom: 0;
+      background: #075e54;
+      color: #fff;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border: 2px solid rgba(255, 255, 255, .92);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
+    }
+
+    .profile h2 {
+      color: #fff;
+      font-size: .98rem;
+    }
+
+    .profile p {
+      margin-top: 3px;
+      color: rgba(255, 255, 255, .72);
+      font-size: .78rem;
+    }
+
+    .status-pill {
+      padding: 5px 8px;
+      color: #d9fdd3;
+      background: rgba(37, 211, 102, .18);
+      font-size: .72rem;
+    }
+
+    .progress {
+      height: 3px;
+      background: rgba(0, 0, 0, .18);
+    }
+
+    .progress-bar {
+      background: #25d366;
+    }
+
+    .messages {
+      padding: 22px 18px 28px;
+      background-color: #efeae2;
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(123, 111, 99, .12) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 78% 62%, rgba(123, 111, 99, .1) 0 1px, transparent 1.5px),
+        linear-gradient(45deg, rgba(255,255,255,.12) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.12) 75%);
+      background-size: 42px 42px, 58px 58px, 84px 84px;
+    }
+
+    .row {
+      margin-bottom: 8px;
+    }
+
+    .bubble {
+      position: relative;
+      max-width: min(570px, 88%);
+      padding: 9px 12px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 1px rgba(60, 70, 65, .12);
+      font-size: .93rem;
+    }
+
+    .bubble.user {
+      max-width: min(520px, 88%);
+      border-radius: 8px;
+      background: #d9fdd3;
+      color: #111b21;
+    }
+
+    .bubble:not(.user):not(.offer)::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -7px;
+      border-top: 9px solid #fff;
+      border-left: 9px solid transparent;
+    }
+
+    .bubble.user::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -7px;
+      border-top: 9px solid #d9fdd3;
+      border-right: 9px solid transparent;
+    }
+
+    .typing {
+      padding: 9px 11px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 1px rgba(60, 70, 65, .12);
+    }
+
+    .composer {
+      padding: 12px 14px 14px;
+      border-top: 1px solid rgba(84, 96, 90, .12);
+      background: #f0f2f5;
+    }
+
+    .choices {
+      gap: 8px;
+    }
+
+    .choice {
+      min-height: 44px;
+      padding: 10px 13px;
+      border: 1px solid #c6d5cf;
+      border-radius: 10px;
+      background: #fff;
+      color: #1f2d29;
+      box-shadow: 0 1px 1px rgba(60, 70, 65, .08);
+    }
+
+    .choice:hover,
+    .choice:focus-visible {
+      border-color: #00a884;
+      background: #f0fff8;
+      transform: translateY(-1px);
+    }
+
+    .choice.primary {
+      border-color: #00a884;
+      background: #00a884;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 168, 132, .2);
+    }
+
+    .choice.primary:hover,
+    .choice.primary:focus-visible {
+      background: #008f72;
+    }
+
+    .choice.secondary {
+      color: #52615b;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .offer-head {
+      padding: 15px;
+      background: #f0fff8;
+    }
+
+    .hotmart-slot {
+      border-color: #b9d9cc;
+      background: #f7fffb;
+    }
+
+    .demo-video-card,
+    .bubble.offer {
+      border-color: #cbd8d2;
+      box-shadow: 0 1px 2px rgba(60, 70, 65, .14);
+    }
+
+    .demo-video-card .offer-head {
+      background: #f0fff8;
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: 100vw;
+        padding: 0;
+      }
+
+      .conversion-hero {
+        padding: 18px 16px 15px;
+        border-radius: 0;
+      }
+
+      .order-status-grid {
+        grid-template-columns: 1fr;
+        max-width: 280px;
+        margin-top: 14px;
+      }
+
+      h1 {
+        max-width: 15ch;
+        font-size: clamp(1.7rem, 8.5vw, 2.35rem);
+      }
+
+      .chat-shell {
+        min-height: calc(100dvh - 220px);
+        border-radius: 0;
+      }
+
+      .messages {
+        min-height: 260px;
+        padding: 16px 10px 20px;
+      }
+
+      .bubble {
+        max-width: 91vw;
+        font-size: .92rem;
+      }
+
+      .bubble.user {
+        max-width: 88vw;
+      }
+
+      .composer {
+        padding: 10px 10px calc(12px + env(safe-area-inset-bottom));
+      }
+
+      .choice {
+        min-height: 50px;
+        padding: 12px 13px;
+        font-size: .94rem;
+      }
+    }
+    /* Paleta modelada a partir do projeto downsell enviado. */
+    :root {
+      --bg: #100e13;
+      --surface: #17131a;
+      --surface-soft: #241524;
+      --ink: #f5edf2;
+      --muted: #b9aeb8;
+      --line: rgba(244, 184, 221, .18);
+      --red: #f04c9a;
+      --red-dark: #d93686;
+      --teal: #f04c9a;
+      --teal-soft: rgba(240, 76, 154, .13);
+      --gold: #ff856f;
+      --shadow: 0 20px 70px rgba(0, 0, 0, .42);
+    }
+
+    html,
+    body {
+      background: #100e13;
+      color: var(--ink);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 92% 8%, rgba(109, 32, 93, .18), transparent 28rem),
+        radial-gradient(circle at 10% 35%, rgba(240, 76, 154, .08), transparent 24rem),
+        #100e13;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+    }
+
+    .conversion-hero {
+      padding: 26px 24px 22px;
+      border: 1px solid rgba(240, 76, 154, .24);
+      background:
+        radial-gradient(circle at 84% 15%, rgba(240, 76, 154, .18), transparent 18rem),
+        linear-gradient(100deg, rgba(16, 14, 19, .98), rgba(45, 18, 39, .74));
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .28);
+    }
+
+    .hero-kicker {
+      color: #17131a;
+      background: linear-gradient(90deg, #e994c5, #f04c9a, #ff856f, #e994c5);
+      background-size: 260% 100%;
+      box-shadow: 0 0 0 1px rgba(240, 76, 154, .28), 0 8px 22px rgba(240, 76, 154, .18);
+    }
+
+    h1 { color: #f5edf2; }
+    .danger-highlight { color: #f04c9a; }
+    .hero-copy { color: #d5c8d2; }
+    .hero-copy strong { color: #f4d6e8; }
+
+    .chat-shell {
+      border-color: rgba(240, 76, 154, .28);
+      background: #17131a;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, .45), 0 0 60px rgba(240, 76, 154, .08);
+    }
+
+    .chat-header,
+    .composer {
+      border-color: rgba(244, 184, 221, .18);
+      background: #141117;
+    }
+
+    .profile h2,
+    .profile p,
+    .status-pill { color: #f5edf2; }
+    .profile p { color: #b9aeb8; }
+    .status-pill { background: rgba(240, 76, 154, .13); }
+    .progress { background: rgba(244, 184, 221, .12); }
+    .progress-bar { background: linear-gradient(90deg, #f04c9a, #ff856f); }
+
+    .messages {
+      background:
+        radial-gradient(circle at 75% 0%, rgba(109, 32, 93, .18), transparent 22rem),
+        #100e13;
+    }
+
+    .bubble:not(.user) { background: #211624; color: #f5edf2; }
+    .bubble.user { background: #6d205d; color: #fff7fb; }
+    .typing { background: #211624; }
+    .typing span { background: #e994c5; }
+
+    .choice {
+      border-color: rgba(240, 76, 154, .28);
+      background: #17131a;
+      color: #f5edf2;
+    }
+    .choice:hover,
+    .choice:focus-visible { border-color: #f04c9a; background: #241524; }
+    .choice.primary { border-color: #25d366; background: linear-gradient(100deg, #0f7a45, #25d366); }
+    .choice.primary:hover,
+    .choice.primary:focus-visible { border-color: #5ff08a; background: linear-gradient(100deg, #129650, #3ee47a); }
+    .choice.secondary { color: #b9aeb8; }
+
+    .bubble.offer,
+    .demo-video-card { border-color: rgba(240, 76, 154, .35); background: #141117; }
+    .offer-head,
+    .demo-video-card .offer-head { background: linear-gradient(135deg, rgba(109, 32, 93, .5), rgba(240, 76, 154, .12)); border-color: rgba(244, 184, 221, .18); }
+    .offer-head strong,
+    .offer-head span,
+    .offer-body,
+    .stack li { color: #f5edf2; }
+    .offer-head span,
+    .stack li { color: #b9aeb8; }
+    .check { background: #f04c9a; }
+    .price { border-color: rgba(244, 184, 221, .18); }
+    .price del { color: rgba(37, 211, 102, .72); }
+    .price small { color: #b9aeb8; }
+    .price strong { color: #25d366; }
+    .hotmart-slot { border-color: rgba(240, 76, 154, .35); background: #100e13; }
+    .slot-label,
+    .video-caption { color: #b9aeb8; }
+
+    .modal { background: #17131a; color: #f5edf2; }
+    .modal-body p { color: #b9aeb8; }
+
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="conversion-hero" aria-label="Confirmación de compra y recomendación opcional">
+      <div class="confirmation-topline">
+        <span class="confirmation-check">✓</span>
+        <span>Pago aprobado</span>
+      </div>
+      <h1>¡Tu pago fue confirmado!<br><span class="danger-highlight">Pero tu acceso aún no.</span></h1>
+      <p class="hero-copy"><strong>Responde abajo para liberar tu acceso.</strong></p>
+    </section>
+
+    <section class="chat-shell" aria-label="Conversación con Sofía Vilar">
+      <div>
+        <header class="chat-header">
+          <div class="profile">
+            <div class="avatar" aria-hidden="true">
+              <img src="/upsell1-sofia.webp" alt="">
+            </div>
+            <div>
+              <h2>Sofía Vilar</h2>
+              <p>en línea · guía antes del acceso</p>
+            </div>
+          </div>
+          <div class="status-pill">Acceso seguro</div>
+        </header>
+        <div class="progress" aria-hidden="true">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <div id="messages" class="messages" aria-live="polite" aria-atomic="false"></div>
+
+      <footer class="composer">
+        <div id="choices" class="choices" aria-label="Opciones de respuesta"></div>
+      </footer>
+    </section>
+  </main>
+
+  <dialog id="checkoutModal" class="modal">
+    <div class="modal-body">
+      <h2>Checkout aún no conectado</h2>
+      <p>Para el test visual, el botón está preparado. Cuando tengas el enlace o el widget del Embudo de Ventas de Hotmart, lo conectamos aquí.</p>
+      <button class="choice primary" type="button" id="closeModal">Entendido</button>
+    </div>
+  </dialog>
+
+  <script>
+    const CHECKOUT_URL = "https://pay.hotmart.com/SEU-LINK-DE-UPSELL";
+    const THANK_YOU_URL = "https://SEU-DOMINIO.com/obrigado";
+    const avatarSrc = "/upsell1-sofia.webp";
+    const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
+    const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
+
+    const messagesEl = document.querySelector("#messages");
+    const choicesEl = document.querySelector("#choices");
+    const progressBar = document.querySelector("#progressBar");
+    const modal = document.querySelector("#checkoutModal");
+    const closeModal = document.querySelector("#closeModal");
+
+    const state = {
+      answers: {},
+      progress: 8
+    };
+
+    const profiles = {
+      continuar: {
+        diagnosis: "tu prioridad es no perder la continuidad",
+        echo: "Quieres saber qué hacer cuando el toque evoluciona y el momento pide otra forma de conducción.",
+        bridge: "Entonces el complemento debe darte una secuencia simple para continuar, no una lista de movimientos difíciles."
+      },
+      manos: {
+        diagnosis: "tu prioridad es no depender solo de las manos",
+        echo: "Quieres sentir que el Mapa no termina cuando tus manos dejan de guiar el estímulo.",
+        bridge: "Entonces necesitas una habilidad que lleve la misma intención del toque hacia el control del cuerpo."
+      },
+      seguridad: {
+        diagnosis: "tu prioridad es sentirte segura con tu propio cuerpo",
+        echo: "Quieres aplicar sin quedarte pensando si estás haciendo demasiado, poco o de la forma incorrecta.",
+        bridge: "Entonces el complemento debe enseñarte conciencia, respiración y ritmo antes de pedir intensidad."
+      }
+    };
+
+    const doubts = {
+      esfuerzo: "evitar moverte más fuerte de lo necesario",
+      certeza: "dejar de preguntarte si él está sintiendo alguna diferencia",
+      intensidad: "mantener la intensidad cuando el momento avance"
+    };
+
+    const flow = {
+      intro: {
+        progress: 12,
+        bot: [
+          "Tu pago del Mapa del Placer Masculino fue aprobado correctamente ✅",
+          "Tu acceso todavía no ha sido liberado.",
+          "Responde estas preguntas rápidas para liberarlo. Cuando las manos ya despertaron su cuerpo y el momento avanza, ¿qué te gustaría dominar mejor?"
+        ],
+        choices: [
+          { text: "Continuar sin que la sensación se corte", value: "continuar", next: "diagnosis" },
+          { text: "No depender solo de mis manos", value: "manos", next: "diagnosis" },
+          { text: "Sentirme más segura con mi cuerpo", value: "seguridad", next: "diagnosis" }
+        ],
+        store: "profile"
+      },
+      diagnosis: {
+        progress: 34,
+        bot: [
+          () => profiles[state.answers.profile].echo,
+          () => `En una frase: ${profiles[state.answers.profile].diagnosis}.`,
+          "Y tiene sentido. El Mapa te enseña a despertar con las manos; la siguiente etapa es saber continuar cuando las manos salen de escena."
+        ],
+        choices: [
+          { text: "Muéstrame esa siguiente etapa", next: "demo" },
+          { text: "Quiero entenderlo rápido", next: "demo" }
+        ]
+      },
+      demo: {
+        progress: 56,
+        video: true,
+        bot: [
+          "Mira la lógica de la demostración práctica: La Envolvente.",
+          "Al subir: contracción suave.\nAl bajar: relajación.\nLento. Sin saltos. Sin exagerar.",
+          "Por fuera parece un movimiento pequeño. Por dentro, crea una alternancia: presión… alivio… presión… alivio.",
+          "Eso es Control Doble: coordinar cadera, ritmo y pausa con los músculos íntimos."
+        ],
+        choices: [
+          { text: "Ahora entiendo la diferencia", next: "mechanism" },
+          { text: "¿Cómo aprendo a hacerlo?", next: "mechanism" }
+        ]
+      },
+      mechanism: {
+        progress: 72,
+        bot: [
+          "El ciclo completo es simple:",
+          "Las manos despiertan.\nLos músculos íntimos continúan.\nEl post-toque prolonga.",
+          "El Mapa cubre el toque y el post-toque. Pompoarismo de las Diosas completa el momento del medio, con respiración, contracción, relajación, presión y ritmo.",
+          "No es otra oferta desconectada. Es la habilidad que completa lo que acabas de comprar."
+        ],
+        choices: [
+          { text: "¿Qué incluye exactamente?", next: "offer" },
+          { text: "Quiero ver la oferta", next: "offer" }
+        ]
+      },
+      offer: {
+        progress: 88,
+        bot: [
+          "Como acabas de entrar al Mapa, puedes agregarlo ahora por una condición especial.",
+          "Tu acceso al Mapa está confirmado aunque decidas no agregar nada. Si lo agregas, queda todo en el mismo acceso."
+        ],
+        offer: true,
+        choices: [
+          { text: "Sí, quiero dominar el APERTA E SOLTA", next: "checkout", primary: true },
+          { text: "no, prefiero seguir siendo una más que no sabe cómo continuar.", next: "decline", secondary: true }
+        ]
+      },
+      checkout: {
+        progress: 96,
+        bot: [
+          "Perfecto. Al confirmar, Hotmart agrega Pompoarismo de las Diosas a tu acceso.",
+          "Así entras con el ciclo completo: despertar, continuar y prolongar."
+        ],
+        hotmart: true,
+        choices: [
+          { text: "Sí, quiero dominar el APERTA E SOLTA", action: "checkout", primary: true },
+          { text: "Volver a revisar qué incluye", next: "offer", secondary: true }
+        ]
+      },
+      decline: {
+        progress: 94,
+        bot: [
+          "Perfecto. Tu acceso al Mapa sigue confirmado ✅",
+          "Solo recuerda la diferencia: el Mapa te enseña a despertar con las manos; Pompoarismo te enseña a continuar cuando el momento avanza.",
+          "Si quieres completar el ciclo desde hoy, todavía puedes agregarlo."
+        ],
+        choices: [
+          { text: "Sí, quiero dominar el APERTA E SOLTA", next: "checkout", primary: true },
+          { text: "no, prefiero seguir siendo una más que no sabe cómo continuar.", action: "thanks", secondary: true }
+        ]
+      },
+      thanks: {
+        progress: 100,
+        bot: [
+          "Listo. Puedes continuar al acceso del Mapa del Placer Masculino ✅",
+          "Te espero adentro.\nCon cariño,\nSofía Vilar"
+        ],
+        choices: [
+          { text: "Ir a mi acceso del Mapa", action: "thanks", primary: true }
+        ]
+      }
+    };
+
+    function sleep(ms) {
+      return new Promise(resolve => window.setTimeout(resolve, ms));
+    }
+
+    function resolveText(item) {
+      return typeof item === "function" ? item() : item;
+    }
+
+    function scrollToBottom() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function setProgress(value) {
+      state.progress = value;
+      progressBar.style.width = `${value}%`;
+    }
+
+    function avatarNode() {
+      const avatar = document.createElement("div");
+      avatar.className = "mini-avatar";
+      avatar.innerHTML = `<img src="${avatarSrc}" alt="">`;
+      return avatar;
+    }
+
+    function addMessage(text, sender = "bot") {
+      const row = document.createElement("div");
+      row.className = `row ${sender}`;
+
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${sender === "user" ? "user" : ""}`;
+      bubble.textContent = text;
+
+      if (sender === "bot") row.appendChild(avatarNode());
+      row.appendChild(bubble);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addOfferCard() {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.appendChild(avatarNode());
+
+      const card = document.createElement("div");
+      card.className = "bubble offer";
+      card.innerHTML = `
+        <div class="offer-head">
+          <strong>Pompoarismo de las Diosas</strong>
+          <span>La etapa que completa el Mapa cuando las manos salen de escena.</span>
+        </div>
+        <div class="offer-body">
+          <ul class="stack">
+            <li><span class="check">✓</span><span>25 técnicas prácticas de contracción, relajación, respiración y ritmo.</span></li>
+            <li><span class="check">✓</span><span>Demostraciones paso a paso para aplicar sin improvisar.</span></li>
+            <li><span class="check">✓</span><span>Control Doble: movimiento por fuera + conciencia por dentro.</span></li>
+            <li><span class="check">✓</span><span>Mapa visual con 15 posiciones y acceso junto al Mapa.</span></li>
+            <li><span class="check">✓</span><span>30 días de garantía.</span></li>
+          </ul>
+          <div class="price">
+            <del>US$97</del>
+            <strong>US$14</strong>
+            <small>pago único</small>
+          </div>
+        </div>
+      `;
+
+      row.appendChild(card);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addHotmartSlot() {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.appendChild(avatarNode());
+
+      const slot = document.createElement("div");
+      slot.className = "bubble offer";
+      slot.innerHTML = `
+        <div class="offer-body">
+          <span class="slot-label">Elige cómo quieres continuar</span>
+          <div id="hotmart-widget-slot" class="hotmart-slot">
+            <button class="choice primary" type="button" data-hotmart-demo="accept">Sí, quiero dominar el APERTA E SOLTA</button>
+            <button class="choice secondary" type="button" data-hotmart-demo="reject">no, prefiero seguir siendo una más que no sabe cómo continuar.</button>
+          </div>
+        </div>
+      `;
+
+      row.appendChild(slot);
+      messagesEl.appendChild(row);
+      slot.querySelector("[data-hotmart-demo='accept']").addEventListener("click", openCheckout);
+      slot.querySelector("[data-hotmart-demo='reject']").addEventListener("click", () => goTo("thanks"));
+      scrollToBottom();
+    }
+
+    function loadVturbPlayer() {
+      if (document.querySelector(`script[data-vturb-player="${VTURB_PLAYER_ID}"]`)) return;
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = VTURB_PLAYER_SCRIPT;
+      script.async = true;
+      script.dataset.vturbPlayer = VTURB_PLAYER_ID;
+      document.head.appendChild(script);
+    }
+
+    function addVturbVideo() {
+      loadVturbPlayer();
+
+      const row = document.createElement("div");
+      row.className = "row";
+      row.appendChild(avatarNode());
+
+      const card = document.createElement("div");
+      card.className = "demo-video-card";
+      card.innerHTML = `
+        <div class="offer-head">
+          <span class="demo-kicker">Demostración práctica</span>
+          <strong>La Envolvente</strong>
+          <span>Observa el ritmo: subir, contraer suavemente; bajar, relajar.</span>
+        </div>
+        <div class="offer-body">
+          <div class="vturb-frame"></div>
+          <p class="video-caption">No se trata de moverte más. Se trata de saber coordinar.</p>
+        </div>
+      `;
+
+      const player = document.createElement("vturb-smartplayer");
+      player.id = VTURB_PLAYER_ID;
+      player.setAttribute("style", "display: block; margin: 0 auto; width: 100%; max-width: 400px;");
+      player.innerHTML = '<div class="vturb-player-placeholder"></div>';
+      card.querySelector(".vturb-frame").appendChild(player);
+
+      row.appendChild(card);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addTyping() {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.dataset.typing = "true";
+      row.appendChild(avatarNode());
+
+      const typing = document.createElement("div");
+      typing.className = "typing";
+      typing.setAttribute("aria-label", "Sofía está escribiendo");
+      typing.innerHTML = "<span></span><span></span><span></span>";
+      row.appendChild(typing);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+      return row;
+    }
+
+    async function botSpeak(lines) {
+      for (const item of lines) {
+        const typing = addTyping();
+        await sleep(520 + Math.min(resolveText(item).length * 8, 700));
+        typing.remove();
+        addMessage(resolveText(item));
+        await sleep(180);
+      }
+    }
+
+    function renderChoices(step) {
+      choicesEl.innerHTML = "";
+      step.choices.forEach(choice => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `choice ${choice.primary ? "primary" : ""} ${choice.secondary ? "secondary" : ""}`;
+        button.textContent = choice.text;
+        button.addEventListener("click", () => choose(choice, step));
+        choicesEl.appendChild(button);
+      });
+    }
+
+    async function choose(choice, step) {
+      choicesEl.innerHTML = "";
+      addMessage(choice.text, "user");
+
+      if (step.store) {
+        state.answers[step.store] = choice.value;
+      }
+
+      if (choice.action === "checkout") {
+        openCheckout();
+        return;
+      }
+
+      if (choice.action === "thanks") {
+        if (THANK_YOU_URL.includes("SEU-DOMINIO")) {
+          goTo("thanks");
+        } else {
+          window.location.href = THANK_YOU_URL;
+        }
+        return;
+      }
+
+      await sleep(180);
+      goTo(choice.next);
+    }
+
+    async function goTo(id) {
+      const step = flow[id];
+      setProgress(step.progress);
+      await botSpeak(step.bot || []);
+      if (step.video) addVturbVideo();
+      if (step.offer) addOfferCard();
+      if (step.hotmart) addHotmartSlot();
+      renderChoices(step);
+    }
+
+    function openCheckout() {
+      if (CHECKOUT_URL.includes("SEU-LINK")) {
+        modal.showModal();
+        return;
+      }
+      window.location.href = CHECKOUT_URL;
+    }
+
+    closeModal.addEventListener("click", () => modal.close());
+
+    goTo("intro");
+  </script>
+</body>
+</html>
