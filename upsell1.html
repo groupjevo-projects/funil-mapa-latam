@@ -1086,6 +1086,41 @@
     .price small { color: #b9aeb8; }
     .price strong { color: #25d366; }
     .hotmart-slot { border-color: rgba(240, 76, 154, .35); background: #100e13; }
+
+    /* Contenedor del widget de Hotmart. Lo que va dentro lo dibuja Hotmart,
+       así que sólo se le da sitio, ancho completo y un estado de carga. */
+    #hotmart-sales-funnel {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    #hotmart-sales-funnel:empty {
+      min-height: 96px;
+      place-items: center;
+    }
+
+    #hotmart-sales-funnel:empty::after {
+      content: "Cargando tus opciones…";
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    #hotmart-sales-funnel iframe,
+    #hotmart-sales-funnel img {
+      width: 100%;
+      max-width: 100%;
+      border: 0;
+      display: block;
+    }
+
+    #hotmart-fallback {
+      display: grid;
+      gap: 10px;
+    }
+
+    #hotmart-fallback[hidden] { display: none; }
     .slot-label,
     .video-caption { color: #b9aeb8; }
 
@@ -1132,26 +1167,33 @@
     </section>
   </main>
 
-  <dialog id="checkoutModal" class="modal">
-    <div class="modal-body">
-      <h2>Checkout aún no conectado</h2>
-      <p>Para el test visual, el botón está preparado. Cuando tengas el enlace o el widget del Embudo de Ventas de Hotmart, lo conectamos aquí.</p>
-      <button class="choice primary" type="button" id="closeModal">Entendido</button>
-    </div>
-  </dialog>
-
   <script>
-    const CHECKOUT_URL = "https://pay.hotmart.com/SEU-LINK-DE-UPSELL";
     const THANK_YOU_URL = "https://SEU-DOMINIO.com/obrigado";
     const avatarSrc = "/upsell1-sofia.webp";
     const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
     const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
+    const HOTMART_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
+
+    // La librería se carga una sola vez y se empieza a pedir al abrir la
+    // página, para que ya esté lista cuando el chat llegue a la oferta.
+    let hotmartLibPromise = null;
+    function loadHotmartLib() {
+      if (!hotmartLibPromise) {
+        hotmartLibPromise = new Promise(function (resolve, reject) {
+          const tag = document.createElement("script");
+          tag.src = HOTMART_LIB;
+          tag.async = true;
+          tag.onload = resolve;
+          tag.onerror = reject;
+          document.head.appendChild(tag);
+        });
+      }
+      return hotmartLibPromise;
+    }
 
     const messagesEl = document.querySelector("#messages");
     const choicesEl = document.querySelector("#choices");
     const progressBar = document.querySelector("#progressBar");
-    const modal = document.querySelector("#checkoutModal");
-    const closeModal = document.querySelector("#closeModal");
 
     const state = {
       answers: {},
@@ -1256,7 +1298,6 @@
         ],
         hotmart: true,
         choices: [
-          { text: "Sí, quiero dominar el APERTA E SOLTA", action: "checkout", primary: true },
           { text: "Volver a revisar qué incluye", next: "offer", secondary: true }
         ]
       },
@@ -1366,16 +1407,46 @@
         <div class="offer-body">
           <span class="slot-label">Elige cómo quieres continuar</span>
           <div id="hotmart-widget-slot" class="hotmart-slot">
-            <button class="choice primary" type="button" data-hotmart-demo="accept">Sí, quiero dominar el APERTA E SOLTA</button>
-            <button class="choice secondary" type="button" data-hotmart-demo="reject">no, prefiero seguir siendo una más que no sabe cómo continuar.</button>
+            <div id="hotmart-sales-funnel"></div>
+            <div id="hotmart-fallback" hidden>
+              <p class="slot-label">No pudimos cargar las opciones de pago.</p>
+              <button class="choice primary" type="button" data-hotmart-fallback="retry">Reintentar</button>
+              <button class="choice secondary" type="button" data-hotmart-fallback="skip">Continuar a mi acceso</button>
+            </div>
           </div>
         </div>
       `;
 
       row.appendChild(slot);
       messagesEl.appendChild(row);
-      slot.querySelector("[data-hotmart-demo='accept']").addEventListener("click", openCheckout);
-      slot.querySelector("[data-hotmart-demo='reject']").addEventListener("click", () => goTo("thanks"));
+
+      const funnelEl = slot.querySelector("#hotmart-sales-funnel");
+      const fallbackEl = slot.querySelector("#hotmart-fallback");
+      fallbackEl.querySelector("[data-hotmart-fallback='retry']").addEventListener("click", () => window.location.reload());
+      fallbackEl.querySelector("[data-hotmart-fallback='skip']").addEventListener("click", () => goTo("thanks"));
+
+      function showFallback() {
+        if (fallbackEl.hidden) {
+          funnelEl.hidden = true;
+          fallbackEl.hidden = false;
+          scrollToBottom();
+        }
+      }
+
+      // El widget de Hotmart dibuja aquí los botones de aceptar y rechazar,
+      // con su propia copy, y se encarga del cobro con un clic.
+      loadHotmartLib()
+        .then(function () {
+          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
+        })
+        .catch(showFallback);
+
+      // Si el widget no llega a pintar nada (bloqueado, sin token de compra en
+      // la URL, error de Hotmart), el chat no puede quedarse sin salida.
+      window.setTimeout(function () {
+        if (!funnelEl.childElementCount) showFallback();
+      }, 7000);
+
       scrollToBottom();
     }
 
@@ -1467,11 +1538,6 @@
         state.answers[step.store] = choice.value;
       }
 
-      if (choice.action === "checkout") {
-        openCheckout();
-        return;
-      }
-
       if (choice.action === "thanks") {
         if (THANK_YOU_URL.includes("SEU-DOMINIO")) {
           goTo("thanks");
@@ -1495,15 +1561,9 @@
       renderChoices(step);
     }
 
-    function openCheckout() {
-      if (CHECKOUT_URL.includes("SEU-LINK")) {
-        modal.showModal();
-        return;
-      }
-      window.location.href = CHECKOUT_URL;
-    }
-
-    closeModal.addEventListener("click", () => modal.close());
+    // Se pide ya, aunque la oferta llegue varios pasos después: así el widget
+    // aparece al instante en lugar de hacer esperar justo en la decisión.
+    loadHotmartLib().catch(() => {});
 
     goTo("intro");
   </script>
