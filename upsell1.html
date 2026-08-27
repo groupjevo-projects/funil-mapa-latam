@@ -1168,7 +1168,7 @@
   </main>
 
   <script>
-    const THANK_YOU_URL = "https://SEU-DOMINIO.com/obrigado";
+    const THANK_YOU_URL = "/tks";
     const avatarSrc = "/upsell1-sofia.webp";
     const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
     const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
@@ -1539,11 +1539,7 @@
       }
 
       if (choice.action === "thanks") {
-        if (THANK_YOU_URL.includes("SEU-DOMINIO")) {
-          goTo("thanks");
-        } else {
-          window.location.href = THANK_YOU_URL;
-        }
+        window.location.href = THANK_YOU_URL;
         return;
       }
 

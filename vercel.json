@@ -1,7 +1,24 @@
 {
   "rewrites": [
-    { "source": "/upsell1", "destination": "/upsell1.html" },
-    { "source": "/upsell1/", "destination": "/upsell1.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/upsell1",
+      "destination": "/upsell1.html"
+    },
+    {
+      "source": "/upsell1/",
+      "destination": "/upsell1.html"
+    },
+    {
+      "source": "/tks",
+      "destination": "/tks.html"
+    },
+    {
+      "source": "/tks/",
+      "destination": "/tks.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
