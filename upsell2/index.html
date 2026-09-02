@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cofre Secreto de la Pasión | Sofía Vilar</title>
+  <style>
+    :root {
+      --bg: #17120F;
+      --surface: #1e1713;
+      --surface-soft: #281e19;
+      --surface-card: #2e221c;
+      --ink: #f7f0ea;
+      --muted: #c2b5ad;
+      --line: rgba(240, 120, 150, 0.18);
+      --line-subtle: rgba(255, 255, 255, 0.08);
+      --accent: #f04c9a;
+      --accent-soft: rgba(240, 76, 154, 0.14);
+      --gold: #ff9d7a;
+      --green-btn: #25d366;
+      --green-dark: #0f7a45;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.45;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #17120F;
+      background-image:
+        radial-gradient(circle at 90% 10%, rgba(130, 45, 90, 0.22), transparent 30rem),
+        radial-gradient(circle at 10% 40%, rgba(240, 76, 154, 0.09), transparent 26rem),
+        #17120F;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(760px, calc(100% - 28px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 24px 0 34px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: start;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .conversion-hero {
+      padding: 22px 24px 20px;
+      text-align: left;
+      border: 1px solid rgba(240, 76, 154, 0.24);
+      border-bottom: 0;
+      border-radius: 16px 16px 0 0;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(240, 76, 154, 0.2), transparent 18rem),
+        linear-gradient(100deg, rgba(23, 18, 15, 0.98), rgba(52, 24, 38, 0.85));
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+      min-width: 0;
+    }
+
+    .confirmation-topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      border-radius: 999px;
+      color: #d9fdd3;
+      background: rgba(37, 211, 102, 0.16);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .confirmation-check {
+      display: grid;
+      width: 17px;
+      height: 17px;
+      place-items: center;
+      border-radius: 50%;
+      color: #075e54;
+      background: #d9fdd3;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 10px 0 0;
+      color: #f7f0ea;
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
+      line-height: 1.05;
+      max-width: 22ch;
+    }
+
+    .danger-highlight {
+      color: #f04c9a;
+    }
+
+    .hero-copy {
+      max-width: 38rem;
+      margin: 8px 0 0;
+      color: #d5c8d2;
+      font-size: 0.95rem;
+    }
+
+    .hero-copy strong {
+      color: #fce4f1;
+      font-weight: 800;
+    }
+
+    .chat-shell {
+      min-height: min(650px, calc(100vh - 210px));
+      border: 1px solid rgba(240, 76, 154, 0.28);
+      border-radius: 0 0 16px 16px;
+      background: #1c1613;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(240, 76, 154, 0.08);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-width: 0;
+    }
+
+    .chat-header {
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      border-bottom: 1px solid rgba(240, 120, 150, 0.18);
+      background: #18120f;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(240, 76, 154, 0.5);
+      background: var(--surface-soft);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(240, 76, 154, 0.25);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 24%;
+      display: block;
+    }
+
+    .profile h2 {
+      margin: 0;
+      color: #f7f0ea;
+      font-size: 0.98rem;
+      line-height: 1.1;
+    }
+
+    .profile p {
+      margin: 3px 0 0;
+      color: #c2b5ad;
+      font-size: 0.78rem;
+    }
+
+    .status-pill {
+      min-width: max-content;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(240, 76, 154, 0.14);
+      border: 1px solid rgba(240, 76, 154, 0.28);
+      color: #fce4f1;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .progress {
+      height: 3px;
+      background: rgba(240, 120, 150, 0.12);
+    }
+
+    .progress-bar {
+      width: 90%;
+      height: 100%;
+      background: linear-gradient(90deg, #f04c9a, #ff9d7a);
+      transition: width 300ms ease;
+    }
+
+    .messages {
+      min-height: 320px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 22px 18px 28px;
+      background:
+        radial-gradient(circle at 75% 0%, rgba(130, 45, 90, 0.18), transparent 22rem),
+        #17120F;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin: 0 0 10px;
+      align-items: flex-end;
+      min-width: 0;
+      animation: rise 220ms ease-out;
+    }
+
+    .row.user {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      position: relative;
+      max-width: min(570px, 88%);
+      padding: 10px 14px;
+      border-radius: 12px 12px 12px 4px;
+      background: #251d18;
+      color: #f7f0ea;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      font-size: 0.94rem;
+      white-space: pre-line;
+      line-height: 1.48;
+    }
+
+    .bubble:not(.user):not(.offer)::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -7px;
+      border-top: 9px solid #251d18;
+      border-left: 9px solid transparent;
+    }
+
+    .bubble.user {
+      max-width: min(520px, 88%);
+      border-radius: 12px 12px 4px 12px;
+      background: #6e224d;
+      color: #fff7fb;
+      box-shadow: 0 2px 10px rgba(110, 34, 77, 0.35);
+    }
+
+    .bubble.user::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -7px;
+      border-top: 9px solid #6e224d;
+      border-right: 9px solid transparent;
+    }
+
+    .bubble.offer,
+    .demo-video-card {
+      width: min(540px, 92%);
+      max-width: min(540px, 92%);
+      padding: 0;
+      overflow: hidden;
+      background: #1e1713;
+      border: 1px solid rgba(240, 76, 154, 0.35);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .offer-head,
+    .demo-video-card .offer-head {
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(130, 45, 90, 0.5), rgba(240, 76, 154, 0.14));
+      border-bottom: 1px solid rgba(240, 120, 150, 0.18);
+    }
+
+    .demo-kicker {
+      display: block;
+      margin-bottom: 5px;
+      color: #ff9d7a;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .offer-head strong {
+      display: block;
+      font-size: 1.15rem;
+      color: #ffffff;
+    }
+
+    .offer-head span {
+      display: block;
+      margin-top: 4px;
+      color: #c2b5ad;
+      font-size: 0.9rem;
+    }
+
+    .offer-body {
+      padding: 16px;
+    }
+
+    /* Video Player Container */
+    .video-player-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      background: #110d0a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(240, 76, 154, 0.25);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+      margin-bottom: 10px;
+    }
+
+    .video-placeholder-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, rgba(110, 34, 77, 0.35), #110d0a 80%);
+      cursor: pointer;
+    }
+
+    .play-button-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f04c9a, #ff9d7a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(240, 76, 154, 0.6);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .play-button-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      margin-left: 3px;
+    }
+
+    .video-placeholder-content:hover .play-button-icon {
+      transform: scale(1.08);
+      box-shadow: 0 6px 26px rgba(240, 76, 154, 0.8);
+    }
+
+    .video-badge {
+      margin-top: 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fce4f1;
+      text-transform: uppercase;
+    }
+
+    /* Stack list with lighter clear boxes */
+    .stack-cards {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 16px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .stack-card-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #2b201a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .stack-card-item:hover {
+      background: #34261f;
+      border-color: rgba(240, 76, 154, 0.3);
+    }
+
+    .stack-icon-pill {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .stack-text-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .stack-title {
+      display: block;
+      color: #ffffff !important;
+      font-size: 0.94rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 3px;
+    }
+
+    .stack-desc {
+      display: block;
+      color: #c2b5ad;
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    .price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(240, 120, 150, 0.18);
+    }
+
+    .price del {
+      color: rgba(255, 157, 122, 0.75);
+      font-size: 0.95rem;
+    }
+
+    .price strong {
+      color: #25d366;
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+
+    .price small {
+      color: #c2b5ad;
+      font-size: 0.85rem;
+    }
+
+    .typing {
+      width: 58px;
+      padding: 11px 12px;
+      display: inline-flex;
+      gap: 4px;
+      border-radius: 12px 12px 12px 4px;
+      background: #251d18;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .typing span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #e994c5;
+      opacity: 0.65;
+      animation: blink 960ms infinite;
+    }
+
+    .typing span:nth-child(2) {
+      animation-delay: 120ms;
+    }
+
+    .typing span:nth-child(3) {
+      animation-delay: 240ms;
+    }
+
+    .composer {
+      border-top: 1px solid rgba(240, 120, 150, 0.18);
+      background: #18120f;
+      padding: 14px 16px 16px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 8px;
+    }
+
+    .choice {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 15px;
+      border: 1px solid rgba(240, 76, 154, 0.28);
+      border-radius: 10px;
+      background: #221a15;
+      color: #f7f0ea;
+      text-align: left;
+      font-size: 0.95rem;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .choice:hover,
+    .choice:focus-visible {
+      border-color: #f04c9a;
+      background: #2d211a;
+      outline: 0;
+      transform: translateY(-1px);
+    }
+
+    .choice.primary {
+      border-color: #25d366;
+      background: linear-gradient(100deg, #0f7a45, #25d366);
+      color: #fff;
+      font-weight: 850;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    }
+
+    .choice.primary:hover,
+    .choice.primary:focus-visible {
+      border-color: #5ff08a;
+      background: linear-gradient(100deg, #129650, #3ee47a);
+    }
+
+    .choice.secondary {
+      color: #c2b5ad;
+      background: transparent;
+      border-color: transparent;
+      text-align: center;
+      box-shadow: none;
+      font-size: 0.88rem;
+    }
+
+    .choice.secondary:hover {
+      color: #f7f0ea;
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .hotmart-slot {
+      margin-top: 10px;
+      padding: 12px;
+      border: 1px dashed rgba(240, 76, 154, 0.35);
+      border-radius: var(--radius);
+      background: #17120F;
+    }
+
+    .slot-label {
+      display: block;
+      margin-bottom: 10px;
+      color: #c2b5ad;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .video-caption {
+      margin: 8px 0 0;
+      color: #c2b5ad;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% {
+        transform: translateY(0);
+        opacity: 0.38;
+      }
+      40% {
+        transform: translateY(-3px);
+        opacity: 0.9;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: 100vw;
+        max-width: 100vw;
+        padding: 0;
+      }
+
+      .conversion-hero {
+        padding: 18px 16px 15px;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+      }
+
+      h1 {
+        font-size: clamp(1.6rem, 8vw, 2.25rem);
+        max-width: 18ch;
+      }
+
+      .chat-shell {
+        min-height: calc(100dvh - 210px);
+        border-radius: 0;
+        border: 0;
+      }
+
+      .messages {
+        min-height: 260px;
+        padding: 16px 12px 20px;
+      }
+
+      .bubble {
+        max-width: 90vw;
+        font-size: 0.92rem;
+      }
+
+      .bubble.user {
+        max-width: 88vw;
+      }
+
+      .bubble.offer,
+      .demo-video-card {
+        width: 92vw;
+        max-width: 92vw;
+      }
+
+      .composer {
+        padding: 10px 10px calc(14px + env(safe-area-inset-bottom));
+      }
+
+      .choice {
+        min-height: 48px;
+        padding: 12px 14px;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="conversion-hero" aria-label="Confirmación de compra y recomendación del nivel avanzado">
+      <div class="confirmation-topline">
+        <span class="confirmation-check">✓</span>
+        <span>Pago aprobado</span>
+      </div>
+      <h1>¡Tu pago fue confirmado!<br><span class="danger-highlight">Un último secreto antes de acceder.</span></h1>
+      <p class="hero-copy"><strong>Responde abajo para liberar tu acceso completo.</strong></p>
+    </section>
+
+    <section class="chat-shell" aria-label="Conversación con Sofía Vilar">
+      <div>
+        <header class="chat-header">
+          <div class="profile">
+            <div class="avatar" aria-hidden="true">
+              <img src="../sofia-vilar.png" alt="Sofía Vilar" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Cdefs%3E%3ClinearGradient id=\'g\' x1=\'0%25\' y1=\'0%25\' x2=\'100%25\' y2=\'100%25\'%3E%3Cstop offset=\'0%25\' stop-color=\'%23d93686\'/%3E%3Cstop offset=\'100%25\' stop-color=\'%236d205d\'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'url(%23g)\'/%3E%3Ctext x=\'50\' y=\'58\' font-family=\'sans-serif\' font-size=\'30\' font-weight=\'bold\' text-anchor=\'middle\' fill=\'%23ffffff\'%3ESV%3C/text%3E%3C/svg%3E';">
+            </div>
+            <div>
+              <h2>Sofía Vilar</h2>
+              <p>en línea · guía antes del acceso</p>
+            </div>
+          </div>
+          <div class="status-pill">Acceso seguro</div>
+        </header>
+        <div class="progress" aria-hidden="true">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <div id="messages" class="messages" aria-live="polite" aria-atomic="false"></div>
+
+      <footer class="composer">
+        <div id="choices" class="choices" aria-label="Opciones de respuesta"></div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const AREA_ALUNAS_URL = "/tks";
+    const CHECKOUT_1CLICK_URL = "#checkout-1click";
+
+    const messagesEl = document.querySelector("#messages");
+    const choicesEl = document.querySelector("#choices");
+    const progressBar = document.querySelector("#progressBar");
+
+    const state = {
+      prioridad: null,
+      progress: 90
+    };
+
+    const validaciones = {
+      variedad: "Eso no se resuelve con más fuerza ni con insistir, se resuelve teniendo un menú amplio de dónde elegir.",
+      repertorio: "Exacto, un solo plan no sirve para todos los días. Necesitas opciones según cómo llegue la noche.",
+      impacto: "Tiene todo el sentido. El efecto se mantiene fuerte cuando él nunca sabe qué sorpresa viene después."
+    };
+
+    const flow = {
+      // 🧱 BLOQUE 1: ALIVIO DE ANSIEDAD + CELEBRACIÓN + INVITACIÓN
+      bloco1: {
+        progress: 90,
+        bot: [
+          "Antes de mostrarte esto, algo muy rápido: tu pedido está confirmado y el cobro aparece con un nombre totalmente neutro y discreto en tu estado de cuenta, sin sorpresas ni confusiones. 🌸",
+          "Ya tienes la llave física con el Mapa del Placer Masculino y ya tienes las palabras exactas con el Protocolo de Reconexión. Eso ya te coloca pasos adelante.",
+          "Pero déjame mostrarte el último nivel, lo que separa a la mujer que él recuerda con cariño, de la mujer que no se puede sacar de la cabeza.",
+          "Esto solo aparece aquí, por única vez. ¿Me regalas dos minutos?"
+        ],
+        choices: [
+          { text: "Sí, Sofía, muéstrame", next: "bloco2" },
+          { text: "Tengo curiosidad, cuéntame", next: "bloco2" }
+        ]
+      },
+
+      // 🧱 BLOQUE 2: DIAGNÓSTICO (LA TRAMPA DE REPETIR SIEMPRE LO MISMO)
+      bloco2: {
+        progress: 92,
+        bot: [
+          "Cuando ya sabes encender la chispa y ya sabes cómo hablarle sin pena, llega una pregunta natural: \"¿y ahora, qué más podemos hacer?\"",
+          "La reconexión abrió la puerta, pero detrás de ella hay un cuarto entero por explorar. Y la forma más silenciosa de perder lo que acabas de recuperar es hacer siempre lo mismo, hasta que la novedad se apague.\n\n¿Qué es lo que más quieres asegurar a partir de hoy?"
+        ],
+        store: "prioridad",
+        choices: [
+          { text: "No repetir siempre la misma noche", value: "variedad", next: "bloco3" },
+          { text: "Tener opciones según la energía de cada día", value: "repertorio", next: "bloco3" },
+          { text: "Sorprenderlo siempre y que nunca se vuelva predecible", value: "impacto", next: "bloco3" }
+        ]
+      },
+
+      // 🧱 BLOQUE 3: VALIDACIÓN PERSONALIZADA + FUTURO SENSORIAL
+      bloco3: {
+        progress: 94,
+        bot: [
+          () => validaciones[state.prioridad] || "Tiene todo el sentido contar con un repertorio completo a la mano.",
+          "Imagínate tener en tu mesa de noche un menú secreto: un viernes, un masaje tántrico largo y sin prisa. Un miércoles ocupado, toques en zonas que él ni sabía que eran tan sensibles. Un sábado especial, un ritual completo con otra luz y otra versión tuya que él todavía no conoce.",
+          "No se trata de esforzarte más, se trata de no ser predecible."
+        ],
+        choices: [
+          { text: "Muéstrame ese menú", next: "bloco4" },
+          { text: "Quiero verlo rápido", next: "bloco4" }
+        ]
+      },
+
+      // 🧱 BLOQUE 4: DEMOSTRACIÓN PRÁCTICA CON VIDEO PLAYER
+      bloco4: {
+        progress: 95,
+        videoCard: true,
+        bot: [
+          "Mira una pequeña muestra: la secuencia de toques lentos que baja el ritmo del cuerpo y multiplica la sensibilidad antes de activar el punto G masculino, el mismo que aprendiste en el Mapa."
+        ],
+        choices: [
+          { text: "Ahora entiendo la diferencia", next: "bloco5" },
+          { text: "¿Cómo aprendo todo esto?", next: "bloco5" }
+        ]
+      },
+
+      // 🧱 BLOQUE 5: SOLUCIÓN + STACK DE CLASES AVANZADAS (SIN DUPLICACIÓN)
+      bloco5: {
+        progress: 96,
+        stackPreview: true,
+        bot: [
+          "No creé esto de la nada. Lo creé porque muchas de mis alumnas que ya dominaban el Mapa y el Protocolo me escribían exactamente lo mismo:\n\n\"Sofía, esto funcionó increíble, pero ¿ahora qué sigue? No quiero hacer siempre lo mismo y que caigamos en otra rutina.\"",
+          "Ahí lo vi con claridad: el Mapa te da la llave física y el Protocolo te da la confianza, pero faltaba el repertorio completo. Por eso reuní mis 8 clases maestras más avanzadas en un solo lugar: el Cofre Secreto de la Pasión.",
+          "Y antes de que te preguntes si esto repite lo que ya compraste, la respuesta es no. El Mapa te enseñó el punto y el movimiento exacto. El Cofre es lo que haces alrededor para que cada encuentro se sienta como una experiencia completamente nueva."
+        ],
+        choices: [
+          { text: "¿Qué más incluye?", next: "bloco6" },
+          { text: "Quiero ver la oferta especial", next: "bloco6" }
+        ]
+      },
+
+      // 🧱 BLOQUE 6: OFERTA, ANCLAJE Y GARANTÍA
+      bloco6: {
+        progress: 97,
+        offerCard: true,
+        bot: [
+          "Cada una de estas clases por separado es un minicurso completo. Una sola sesión presencial de masaje tántrico para parejas cuesta más de $100 y solo aprendes una técnica.\n\nEl repertorio completo normalmente cuesta $147 dentro del área de alumnas.",
+          "Hoy, como parte de tu bienvenida, puedes agregarlo a tu acceso por solo:\n\n🏷️ $37 (pago único)\n\nEsta oportunidad solo está disponible en esta pantalla, antes de entrar a tu cuenta.",
+          "🛡️ Garantía incondicional de 30 días.\nEntra al Cofre completo, pruébalo en una sola noche y mira su reacción. Si no ves en sus ojos esa mirada de asombro genuino que no se puede fingir, me escribes y te devuelvo cada centavo de tu dinero. Todo el compromiso es mío."
+        ],
+        choices: [
+          { text: "Tres dudas rápidas antes de decidir", next: "bloco7" },
+          { text: "Sí, quiero mi Cofre Secreto de la Pasión por $37", next: "bloco8_checkout", primary: true }
+        ]
+      },
+
+      // 🧱 BLOQUE 7: FAQ DE TRANQUILIDAD
+      bloco7: {
+        progress: 98,
+        bot: [
+          "Tres cosas rápidas para tu tranquilidad:\n\n• ¿Es un cobro por separado? No, se suma a tu compra actual en un solo cargo seguro y discreto.\n• ¿Es la última pantalla? Sí, después de esto vas directo a tu contenido.\n• ¿Tengo límite de tiempo para verlo? No, el Cofre no tiene horario, lo ves cuando quieras y a tu ritmo."
+        ],
+        choices: [
+          { text: "Sí, quiero mi Cofre Secreto de la Pasión por $37", next: "bloco8_checkout", primary: true },
+          { text: "No, prefiero continuar solo con lo que tengo", next: "bloco8_decline", secondary: true }
+        ]
+      },
+
+      // 🧱 BLOQUE 8: CHECKOUT 1-CLIC
+      bloco8_checkout: {
+        progress: 99,
+        hotmart: true,
+        bot: [
+          "¡Excelente! Al confirmar abajo, el Cofre Secreto de la Pasión se agrega automáticamente a tu cuenta en 1 solo clic."
+        ],
+        choices: [
+          { text: "Volver a revisar qué incluye", next: "bloco6", secondary: true }
+        ]
+      },
+
+      // 🧱 BLOQUE 8 (DECLINE) & BLOQUE 9: FINALIZACIÓN
+      bloco8_decline: {
+        progress: 100,
+        bot: [
+          "¡Perfecto! Tu acceso al Mapa del Placer Masculino y al Protocolo de Reconexión ya está 100% liberado.",
+          "Puedes entrar ahora mismo. ¡Te espero adentro con mucho cariño! 💖"
+        ],
+        choices: [
+          { text: "Ir a mi área de alumnas", action: "alunas", primary: true }
+        ]
+      },
+
+      bloco9_sucesso: {
+        progress: 100,
+        bot: [
+          "🎉 ¡Listo! El Cofre Secreto de la Pasión ya fue agregado a tu acceso.",
+          "Te espero adentro, tenemos muchas cosas maravillosas preparadas para ti.\n\nCon cariño,\nSofía Vilar 💖"
+        ],
+        choices: [
+          { text: "Acceder a mi Cofre + Mapa Completo", action: "alunas", primary: true }
+        ]
+      }
+    };
+
+    function sleep(ms) {
+      return new Promise(resolve => window.setTimeout(resolve, ms));
+    }
+
+    function resolveText(item) {
+      return typeof item === "function" ? item() : item;
+    }
+
+    function scrollToBottom() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function setProgress(value) {
+      state.progress = value;
+      progressBar.style.width = `${value}%`;
+    }
+
+    function addMessage(text, sender = "bot") {
+      const row = document.createElement("div");
+      row.className = `row ${sender}`;
+
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${sender === "user" ? "user" : ""}`;
+      bubble.textContent = text;
+
+      row.appendChild(bubble);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addVideoCard() {
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const card = document.createElement("div");
+      card.className = "demo-video-card";
+      card.innerHTML = `
+        <div class="offer-head">
+          <span class="demo-kicker">Demostración práctica</span>
+          <strong>Cofre Secreto de la Pasión</strong>
+          <span>La secuencia de toques que reduce el estrés y despierta la piel.</span>
+        </div>
+        <div class="offer-body">
+          <div class="video-player-frame" id="demoVideoPlayer">
+            <div class="video-placeholder-content">
+              <div class="play-button-icon">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="video-badge">Demostración en video guiada</span>
+            </div>
+          </div>
+          <p class="video-caption">Es la diferencia entre ir directo, y construir una experiencia que no se pueda sacar de la cabeza al día siguiente.</p>
+        </div>
+      `;
+
+      row.appendChild(card);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addStackPreview() {
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const card = document.createElement("div");
+      card.className = "bubble offer";
+      card.innerHTML = `
+        <div class="offer-head">
+          <strong>Lo que encuentras dentro del Cofre:</strong>
+          <span>8 clases maestras demostrativas sin repetición</span>
+        </div>
+        <div class="offer-body">
+          <ul class="stack-cards">
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">🔑</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Masaje Tántrico Lingam</span>
+                <span class="stack-desc">Toques lentos y envolventes que preparan el cuerpo antes del punto G masculino.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">🗺️</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Mapa de las 7 Zonas Ocultas</span>
+                <span class="stack-desc">Puntos de alta sensibilidad, orden exacto y presión recomendada.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">👄</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Oral Sin Cansancio</span>
+                <span class="stack-desc">Técnica ergonómica intensa para él y cómoda para ti, sin dolor de mandíbula.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">🕯️</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Rituales y Noches Temáticas</span>
+                <span class="stack-desc">Cómo transformar la atmósfera en 15 minutos con lo que ya tienes en casa.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">🧴</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Guía de Aceites, Aromas y Toques Sensoriales</span>
+                <span class="stack-desc">Repertorio táctil para despertar todos los sentidos en noches especiales.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      `;
+
+      row.appendChild(card);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addOfferCard() {
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const card = document.createElement("div");
+      card.className = "bubble offer";
+      card.innerHTML = `
+        <div class="offer-head">
+          <strong>Cofre Secreto de la Pasión</strong>
+          <span>El repertorio avanzado que complementa tu aprendizaje</span>
+        </div>
+        <div class="offer-body">
+          <ul class="stack-cards">
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">✓</span>
+              <div class="stack-text-content">
+                <span class="stack-title">8 clases demostrativas completas en alta definición</span>
+                <span class="stack-desc">Acceso inmediato y paso a paso explicado de mujer a mujer.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">✓</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Masaje Tántrico Lingam + 7 Zonas Ocultas</span>
+                <span class="stack-desc">Repertorio sensorial completo para variar cada encuentro.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">✓</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Oral Sin Cansancio + Rituales en 15 Minutos</span>
+                <span class="stack-desc">Soluciones prácticas para aplicar en la vida real sin agotamiento.</span>
+              </div>
+            </li>
+            <li class="stack-card-item">
+              <span class="stack-icon-pill">✓</span>
+              <div class="stack-text-content">
+                <span class="stack-title">Garantía incondicional de 30 días</span>
+                <span class="stack-desc">Pruébalo con calma. Si no te encanta, te devolvemos el 100%.</span>
+              </div>
+            </li>
+          </ul>
+          <div class="price">
+            <del>$147</del>
+            <strong>$37</strong>
+            <small>pago único · sin mensualidades</small>
+          </div>
+        </div>
+      `;
+
+      row.appendChild(card);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+    }
+
+    function addHotmartSlot() {
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const slot = document.createElement("div");
+      slot.className = "bubble offer";
+      slot.innerHTML = `
+        <div class="offer-body">
+          <span class="slot-label">Haz clic abajo para confirmar en 1 solo clic</span>
+          <div class="hotmart-slot">
+            <button class="choice primary" type="button" id="confirmPurchaseBtn" style="width:100%; margin-bottom:8px;">
+              Sí, agregar a mi pedido por $37
+            </button>
+            <button class="choice secondary" type="button" id="skipPurchaseBtn" style="width:100%;">
+              No, continuar a mi acceso sin el Cofre
+            </button>
+          </div>
+        </div>
+      `;
+
+      row.appendChild(slot);
+      messagesEl.appendChild(row);
+
+      slot.querySelector("#confirmPurchaseBtn").addEventListener("click", () => {
+        goTo("bloco9_sucesso");
+      });
+
+      slot.querySelector("#skipPurchaseBtn").addEventListener("click", () => {
+        goTo("bloco8_decline");
+      });
+
+      scrollToBottom();
+    }
+
+    function addTyping() {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.dataset.typing = "true";
+
+      const typing = document.createElement("div");
+      typing.className = "typing";
+      typing.setAttribute("aria-label", "Sofía está escribiendo");
+      typing.innerHTML = "<span></span><span></span><span></span>";
+      row.appendChild(typing);
+      messagesEl.appendChild(row);
+      scrollToBottom();
+      return row;
+    }
+
+    async function botSpeak(lines) {
+      for (const item of lines) {
+        const typing = addTyping();
+        const text = resolveText(item);
+        const delay = Math.min(Math.max(text.length * 13, 850), 2000);
+        await sleep(delay);
+        typing.remove();
+        addMessage(text);
+        await sleep(220);
+      }
+    }
+
+    function renderChoices(step) {
+      choicesEl.innerHTML = "";
+      (step.choices || []).forEach(choice => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `choice ${choice.primary ? "primary" : ""} ${choice.secondary ? "secondary" : ""}`;
+        button.textContent = choice.text;
+        button.addEventListener("click", () => choose(choice, step));
+        choicesEl.appendChild(button);
+      });
+    }
+
+    async function choose(choice, step) {
+      choicesEl.innerHTML = "";
+      addMessage(choice.text, "user");
+
+      if (step.store) {
+        state[step.store] = choice.value;
+      }
+
+      if (choice.action === "alunas") {
+        window.location.href = AREA_ALUNAS_URL;
+        return;
+      }
+
+      await sleep(200);
+      goTo(choice.next);
+    }
+
+    async function goTo(id) {
+      const step = flow[id];
+      if (!step) return;
+      setProgress(step.progress);
+      await botSpeak(step.bot || []);
+      if (step.videoCard) addVideoCard();
+      if (step.stackPreview) addStackPreview();
+      if (step.offerCard) addOfferCard();
+      if (step.hotmart) addHotmartSlot();
+      renderChoices(step);
+    }
+
+    // Iniciar flujo en Bloque 1
+    goTo("bloco1");
+  </script>
+</body>
+</html>
