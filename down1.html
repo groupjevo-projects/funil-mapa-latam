@@ -3,175 +3,267 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días | Mapa del Placer Masculino</title>
+  <title>Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días | Condición especial</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <style>
-    /* Paleta y tipografía tomadas de la página de ventas (style.css) */
+    /* Paleta y tipografía de la página de ventas (style.css) */
     :root {
       --black: #17120f;
-      --panel: #1a1a19;
+      --panel: #1c1613;
+      --panel-2: #221a16;
       --cream: #fff0dd;
-      --paper: #fff5e8;
       --ink: #201714;
       --red: #b9473c;
       --green: #22c55e;
-      --muted: #6c5b50;
-      --line: #34322d;
+      --accent: #e2a24f;
+      --muted: #a2907f;
+      --line: #3a322c;
     }
 
     * { box-sizing: border-box; }
-
     html { background: var(--black); scroll-behavior: smooth; }
-
     body {
       margin: 0;
       background: var(--black);
       color: var(--cream);
       font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.5;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
     .page {
       width: 100%;
-      max-width: 720px;
+      max-width: 600px;
       margin: 0 auto;
+      padding: 0 22px;
     }
 
-    /* ---------- Bloque VSL ---------- */
-    .vsl-section {
-      background: var(--black);
-      text-align: center;
-      padding: 22px 20px 28px;
+    section { padding: 40px 0; }
+    section + section { border-top: 1px solid var(--line); }
+
+    .kicker,
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .kicker::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
     }
 
-    .vsl-section h1 {
-      max-width: 27ch;
-      margin: 0 auto 12px;
+    h1 {
+      margin: 0 0 20px;
       color: var(--cream);
       font-family: Georgia, "Times New Roman", serif;
-      font-weight: 800;
-      font-size: clamp(18px, 4.4vw, 29px);
-      line-height: 1.16;
+      font-weight: 700;
+      font-size: clamp(30px, 8vw, 46px);
+      line-height: 1.12;
       letter-spacing: -0.02em;
-      text-transform: uppercase;
       text-wrap: balance;
     }
+    h1 em,
+    h3 em { color: var(--accent); font-style: italic; }
 
-    .subhead-bar {
-      display: inline-block;
-      max-width: 24ch;
-      margin: 0 auto 20px;
-      padding: 5px 13px;
-      background: var(--red);
-      color: #fff;
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ---------- Tarjeta de oferta ---------- */
+    .offer-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      padding: 26px 22px 24px;
+      text-align: center;
+    }
+
+    .offer-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .offer-label::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .offer-card h2 {
+      margin: 0;
+      color: var(--cream);
       font-family: Georgia, "Times New Roman", serif;
       font-weight: 700;
-      font-size: clamp(13px, 3vw, 18px);
-      line-height: 1.28;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      text-wrap: balance;
+      font-size: clamp(26px, 6.4vw, 34px);
+      line-height: 1.1;
+    }
+    .offer-card h2 em { color: var(--accent); font-style: italic; }
+
+    .offer-name-sub {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: 1.05rem;
     }
 
-    .vsl-player {
-      position: relative;
-      width: min(400px, 92vw);
-      aspect-ratio: 4 / 5;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 4px;
-      background: #000;
+    .offer-desc {
+      max-width: 34ch;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
-    .vsl-player vturb-smartplayer,
-    .vsl-player > div[data-vturb] {
+    .price {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      margin: 22px 0 8px;
+    }
+    .price-old {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-decoration: line-through;
+    }
+    .price-now {
+      color: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: clamp(38px, 10vw, 52px);
+      line-height: 1;
+    }
+    .price-tag {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .discount-badge {
+      display: inline-block;
+      margin: 0 0 20px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    /* ---------- Botones ---------- */
+    .checkout-btn {
       display: block;
       width: 100%;
-      height: 100%;
-    }
-
-    /* Marcador visual mientras no hay player VTURB real */
-    .vsl-placeholder {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-content: center;
-      gap: 10px;
-      background: #0c0a09;
-    }
-
-    .vsl-placeholder .play {
-      width: 62px;
-      height: 62px;
-      margin: 0 auto;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.92);
-      display: grid;
-      place-items: center;
-    }
-
-    .vsl-placeholder .play::after {
-      content: "";
-      width: 0;
-      height: 0;
-      margin-left: 4px;
-      border-style: solid;
-      border-width: 11px 0 11px 18px;
-      border-color: transparent transparent transparent #17120f;
-    }
-
-    /* ---------- CTA ---------- */
-    .cta-wrap {
-      width: min(400px, 92vw);
-      margin: 22px auto 0;
-    }
-
-    .checkout-btn {
-      display: inline-block;
-      width: 100%;
-      padding: 16px 22px;
-      border-radius: 8px;
+      padding: 17px 20px;
+      border: 0;
+      border-radius: 10px;
       background: var(--green);
       color: #fff;
       font-family: Arial, Helvetica, sans-serif;
       font-weight: 800;
-      font-size: clamp(15px, 3.6vw, 17.6px);
-      line-height: 1.3;
-      letter-spacing: 0.5px;
+      font-size: clamp(14px, 3.4vw, 16px);
+      letter-spacing: 0.4px;
       text-transform: uppercase;
       text-align: center;
-      text-decoration: none;
+      cursor: pointer;
       box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-      animation: ctaPulse 2.2s infinite;
+      animation: ctaPulse 2.4s infinite;
     }
-
     .checkout-btn:hover,
-    .checkout-btn:focus-visible {
-      background: #1eb257;
-      outline: 0;
-    }
+    .checkout-btn:focus-visible { background: #1eb257; outline: 0; }
 
     @keyframes ctaPulse {
-      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
       70% { box-shadow: 0 0 0 16px rgba(34, 197, 94, 0); }
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* Widget de Sales Funnel de Hotmart (checkout de 1 clic) */
-    #hotmartMount { width: 100%; }
-    #hotmartMount[hidden] { display: none; }
+    .cta-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .secure {
+      margin: 4px 0 16px;
+      color: rgba(255, 240, 221, 0.4);
+      font-size: 0.72rem;
+    }
 
+    .decline {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 8px 4px;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.82rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+    .decline:hover { color: var(--cream); }
+
+    /* ---------- Secciones de texto ---------- */
+    .section-kicker { color: var(--muted); }
+    .section-kicker::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    h3 {
+      margin: 0 0 16px;
+      color: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: clamp(22px, 5.6vw, 30px);
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+    .ds-why p,
+    .ds-final p { margin: 0; color: var(--muted); font-size: 0.96rem; }
+
+    .ds-final .checkout-btn { margin-top: 22px; }
+    .ds-final .decline { margin-top: 14px; }
+
+    /* ---------- Widget Hotmart ---------- */
+    #hotmartMount { margin-top: 18px; text-align: left; }
+    #hotmartMount[hidden] { display: none; }
     #hotmart-sales-funnel:empty {
-      min-height: 90px;
+      min-height: 96px;
       display: grid;
       place-items: center;
     }
     #hotmart-sales-funnel:empty::after {
       content: "Cargando tus opciones…";
-      color: rgba(255, 240, 221, 0.55);
+      color: var(--muted);
       font-size: 0.9rem;
     }
     #hotmart-sales-funnel iframe,
@@ -181,87 +273,121 @@
       border: 0;
       display: block;
     }
-
     #hotmartFallback { display: grid; gap: 10px; margin-top: 10px; }
     #hotmartFallback[hidden] { display: none; }
-    #hotmartFallback .slot-label {
-      margin: 0;
-      color: rgba(255, 240, 221, 0.6);
-      font-size: 0.82rem;
-    }
+    #hotmartFallback p { margin: 0; color: var(--muted); font-size: 0.82rem; }
     #hotmartFallback .fb-btn {
       padding: 12px 16px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #100c0a;
+      background: var(--panel);
       color: var(--cream);
-      font: 700 0.9rem Arial, Helvetica, sans-serif;
+      font: 700 0.86rem Arial, Helvetica, sans-serif;
       letter-spacing: 0.4px;
       text-transform: uppercase;
       text-align: center;
       cursor: pointer;
     }
 
-    .cta-note {
-      margin: 10px 0 0;
-      color: rgba(255, 240, 221, 0.5);
-      font-size: 0.8rem;
+    /* ---------- Pie ---------- */
+    .ds-footer {
+      text-align: center;
+      padding: 34px 0 44px;
     }
-
-    @media (max-width: 420px) {
-      .vsl-section { padding: 18px 16px 24px; }
-      .vsl-section h1 { max-width: 24ch; }
-      .subhead-bar { max-width: 22ch; }
+    .ds-footer .respect {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-style: italic;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+    }
+    .ds-footer .brand {
+      margin: 0;
+      color: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .ds-footer .brand-sub {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .ds-footer .copy {
+      margin: 16px 0 0;
+      color: rgba(255, 240, 221, 0.3);
+      font-size: 0.74rem;
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <section class="vsl-section" aria-label="Condición especial: Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días">
-      <!-- BORRADOR — refinar copy -->
-      <h1>Sé que el precio quizá te hizo pensarlo dos veces</h1>
-      <span class="subhead-bar">Antes de que te vayas, mira esto</span>
+    <!-- BORRADOR — refinar copy -->
 
-      <div class="vsl-player" id="vslPlayer">
-        <div class="vsl-placeholder" id="vslPlaceholder">
-          <div class="play" aria-hidden="true"></div>
+    <section class="ds-intro">
+      <p class="kicker">Una condición especial para ti</p>
+      <h1>Sé que el precio quizá te hizo <em>pensarlo dos veces.</em></h1>
+      <p class="lead">Por eso, antes de que te vayas, conseguí liberar una condición diferente para que la inversión no sea el motivo de dejar esta experiencia para después.</p>
+    </section>
+
+    <section class="ds-offer">
+      <div class="offer-card">
+        <p class="offer-label">Condición especial liberada</p>
+        <h2>Protocolo Reconexión <em>en Pareja</em></h2>
+        <p class="offer-name-sub">El Plan Guiado de 14 Días</p>
+        <p class="offer-desc">El mismo acceso completo, ahora por una condición que encaja mejor en este momento.</p>
+
+        <div class="price">
+          <span class="price-old">de US$39,00</span>
+          <span class="price-now">US$19,50</span>
+          <span class="price-tag">A LA VISTA</span>
         </div>
-      </div>
+        <span class="discount-badge">50% DE DESCUENTO EXCEPCIONAL</span>
 
-      <div class="cta-wrap" id="ctaWrap" hidden>
-        <button class="checkout-btn" id="checkoutBtn" type="button">Sí, quiero aprovechar la condición especial</button>
-        <p class="cta-note" id="ctaNote">Pago único de US$19,50 · sin cuotas</p>
+        <button class="checkout-btn" type="button" data-checkout>Sí, quiero aprovechar por US$19,50</button>
+        <p class="cta-note">Pago único · sin cuotas</p>
+        <p class="secure">Pago seguro procesado por Hotmart</p>
+        <button class="decline" type="button" data-decline>No, gracias. Aun con esta condición, prefiero no aprovechar.</button>
+
         <div id="hotmartMount" hidden>
           <div id="hotmart-sales-funnel"></div>
           <div id="hotmartFallback" hidden>
-            <p class="slot-label">No pudimos cargar las opciones de pago.</p>
+            <p>No pudimos cargar las opciones de pago.</p>
             <button class="fb-btn" type="button" id="fbRetry">Reintentar</button>
           </div>
         </div>
       </div>
     </section>
+
+    <section class="ds-why">
+      <p class="section-kicker">¿Por qué existe esta condición?</p>
+      <h3>No es un nuevo cobro.<br><em>Es una nueva posibilidad.</em></h3>
+      <p>Sé que cada persona vive un momento diferente. Por eso esta condición del 50% de descuento fue pensada para reducir la barrera de la inversión y permitirte empezar a tu ritmo, sin dejar esta decisión para un futuro indefinido.</p>
+    </section>
+
+    <section class="ds-final">
+      <p class="section-kicker">La decisión sigue siendo tuya</p>
+      <h3>Si tiene sentido para ti,<br><em>esta condición está disponible ahora.</em></h3>
+      <p>Puedes acceder al plan completo por US$19,50 a la vista, o seguir sin esta oferta.</p>
+      <button class="checkout-btn" type="button" data-checkout>Quiero aprovechar el descuento</button>
+      <button class="decline" type="button" data-decline>No, gracias. Voy a seguir sin el Protocolo Reconexión.</button>
+    </section>
+
+    <footer class="ds-footer">
+      <p class="respect">Está bien. Tu decisión merece ser respetada.</p>
+      <p class="brand">Protocolo Reconexión en Pareja</p>
+      <p class="brand-sub">Un plan de reconexión, presencia y ritmo en pareja.</p>
+      <p class="copy">© 2026</p>
+    </footer>
   </main>
 
   <script>
-    // ---- Configuración ----
-    // Al hacer clic en el botón verde se monta el widget de Sales Funnel de
-    // Hotmart (checkout de 1 clic). No usa enlace: Hotmart identifica la
-    // oferta por el token de compra que trae la URL desde el paso anterior.
+    // El botón verde monta el widget de Sales Funnel de Hotmart (checkout de
+    // 1 clic). Hotmart identifica la oferta por el token de compra que trae
+    // la URL desde el paso anterior del embudo.
     const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
-    // TODO owner: player VTURB del VSL del Downsell 1. Con ambos vacíos se
-    // muestra el marcador sin video.
-    const VTURB_PLAYER_ID = "";
-    const VTURB_PLAYER_SCRIPT = "";
-    // El botón aparece cuando el VSL llega a este punto (segundos). 0 = apenas
-    // empieza el video. Ajustar cuando esté el VSL del downsell.
-    const REVEAL_AT_SECONDS = 0;
-    // Sin player el botón queda oculto. Para revisar el diseño: abrir la
-    // página con ?preview=1.
-
-    const ctaWrap = document.getElementById("ctaWrap");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-    const playerEl = document.getElementById("vslPlayer");
-    const placeholder = document.getElementById("vslPlaceholder");
+    // A dónde va quien rechaza la condición: su acceso ya comprado.
+    const DECLINE_URL = "/tks";
 
     let hotmartLibPromise = null;
     function loadHotmartElements() {
@@ -279,13 +405,17 @@
     }
     loadHotmartElements().catch(function () {});
 
-    checkoutBtn.addEventListener("click", function () {
-      checkoutBtn.hidden = true;
-      const note = document.getElementById("ctaNote");
-      if (note) note.hidden = true;
-      const mount = document.getElementById("hotmartMount");
-      const funnelEl = document.getElementById("hotmart-sales-funnel");
-      const fallback = document.getElementById("hotmartFallback");
+    const mount = document.getElementById("hotmartMount");
+    const funnelEl = document.getElementById("hotmart-sales-funnel");
+    const fallback = document.getElementById("hotmartFallback");
+    let opened = false;
+
+    function openCheckout() {
+      if (opened) {
+        mount.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      opened = true;
       mount.hidden = false;
       document.getElementById("fbRetry").addEventListener("click", function () {
         window.location.reload();
@@ -298,59 +428,15 @@
       window.setTimeout(function () {
         if (!funnelEl.childElementCount) fallback.hidden = false;
       }, 7000);
-      mount.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      mount.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    document.querySelectorAll("[data-checkout]").forEach(function (b) {
+      b.addEventListener("click", openCheckout);
     });
-
-    let revealed = false;
-    function revealCta() {
-      if (revealed) return;
-      revealed = true;
-      ctaWrap.hidden = false;
-      ctaWrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-
-    function mountVturb() {
-      if (!VTURB_PLAYER_ID || !VTURB_PLAYER_SCRIPT) return false;
-      placeholder.remove();
-      const player = document.createElement("vturb-smartplayer");
-      player.id = VTURB_PLAYER_ID;
-      player.setAttribute("style", "display:block;width:100%;height:100%;");
-      playerEl.insertBefore(player, playerEl.firstChild);
-      const s = document.createElement("script");
-      s.src = VTURB_PLAYER_SCRIPT;
-      s.async = true;
-      document.head.appendChild(s);
-      return true;
-    }
-
-    function watchVideoTime() {
-      const timer = setInterval(function () {
-        const sp = window.smartplayer;
-        const instances = sp && sp.instances;
-        let t = null;
-        if (instances && instances.length) {
-          for (let i = 0; i < instances.length; i++) {
-            const v = instances[i] && instances[i].video;
-            if (v && typeof v.currentTime === "number") { t = v.currentTime; break; }
-          }
-        }
-        if (t === null) {
-          const el = document.querySelector("vturb-smartplayer video");
-          if (el && typeof el.currentTime === "number") t = el.currentTime;
-        }
-        if (t !== null && t >= REVEAL_AT_SECONDS) {
-          clearInterval(timer);
-          revealCta();
-        }
-      }, 1000);
-    }
-
-    if (mountVturb()) {
-      if (REVEAL_AT_SECONDS <= 0) revealCta();
-      else watchVideoTime();
-    } else if (new URLSearchParams(location.search).has("preview")) {
-      revealCta();
-    }
+    document.querySelectorAll("[data-decline]").forEach(function (b) {
+      b.addEventListener("click", function () { window.location.href = DECLINE_URL; });
+    });
   </script>
 </body>
 </html>
