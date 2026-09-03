@@ -111,9 +111,7 @@
       display: grid;
       place-content: center;
       gap: 10px;
-      background:
-        radial-gradient(circle at 50% 38%, rgba(185, 71, 60, 0.28), transparent 60%),
-        #100c0a;
+      background: #0c0a09;
     }
 
     .vsl-placeholder .play {
@@ -275,42 +273,20 @@
 <body>
   <main class="page">
     <section class="vsl-section" aria-label="Recomendación opcional: Protocolo Reconexión en Pareja">
-      <span class="confirm-pill">✓ Tu compra del Mapa ya está confirmada</span>
-
       <!-- BORRADOR — refinar copy -->
-      <h1>El Mapa te da la técnica.<br>Este protocolo te da el momento para usarla.</h1>
-      <span class="subhead-bar">Cómo proponerlo sin pedir permiso ni matar el clima</span>
+      <h1>¡Felicitaciones! Tu acceso al Mapa del Placer Masculino ya quedó reservado</h1>
+      <span class="subhead-bar">Pero antes necesito darte un aviso</span>
 
       <div class="vsl-player" id="vslPlayer">
         <div class="vsl-placeholder" id="vslPlaceholder">
           <div class="play" aria-hidden="true"></div>
-          <span>VSL Upsell 1</span>
-          <small>pendiente: player VTURB</small>
         </div>
-        <div class="vsl-progress" aria-hidden="true"></div>
       </div>
 
       <div class="cta-wrap" id="ctaWrap" hidden>
-        <div class="offer-strip">
-          Protocolo Reconexión en Pareja — <strong>US$39</strong><del>US$79</del><br>
-          pago único · acceso en el mismo login · garantía de 7 días
-        </div>
         <a class="checkout-btn" id="checkoutBtn" href="#" rel="nofollow">Sí, quiero el Protocolo Reconexión</a>
-        <button class="decline-link" id="declineLink" type="button">No, gracias. Continuar sin el Protocolo.</button>
-        <p class="cta-note">Pago procesado por Hotmart. Si no lo agregas, tu acceso al Mapa sigue igual.</p>
       </div>
     </section>
-
-    <footer class="legal">
-      <h2>Protocolo Reconexión en Pareja</h2>
-      <p class="stamp">Copyright · Mapa del Placer Masculino · 2026</p>
-      <p>
-        Aviso legal: este sitio no está afiliado a Facebook, Instagram, Google ni a ninguna entidad
-        o empresa relacionada. Para detalles sobre cómo se utiliza y protege tu información, consulta
-        nuestra Política de Privacidad y Términos de Uso. Los contenidos son educativos y los
-        resultados dependen del contexto, la comunicación y las decisiones individuales.
-      </p>
-    </footer>
   </main>
 
   <script>
@@ -318,9 +294,6 @@
     // TODO owner: enlace real del checkout de Hotmart (oferta "Protocolo
     // Reconexión en Pareja", US$39).
     const CHECKOUT_URL = "https://pay.hotmart.com/PENDIENTE-LINK-CHECKOUT-PROTOCOLO-US39";
-    // A dónde va quien rechaza. Debe apuntar a /ds1 cuando esa página exista;
-    // por ahora sigue el embudo hacia el Upsell 2.
-    const DECLINE_URL = "/up2";
     // TODO owner: player VTURB del VSL de Upsell 1. Con ambos vacíos se muestra
     // el marcador y el botón aparece tras REVEAL_FALLBACK_MS.
     const VTURB_PLAYER_ID = "";
@@ -332,17 +305,10 @@
 
     const ctaWrap = document.getElementById("ctaWrap");
     const checkoutBtn = document.getElementById("checkoutBtn");
-    const declineLink = document.getElementById("declineLink");
     const playerEl = document.getElementById("vslPlayer");
     const placeholder = document.getElementById("vslPlaceholder");
 
     checkoutBtn.setAttribute("href", CHECKOUT_URL);
-    checkoutBtn.addEventListener("click", function (e) {
-      // href ya lleva al checkout; este handler queda para tracking futuro.
-    });
-    declineLink.addEventListener("click", function () {
-      window.location.href = DECLINE_URL;
-    });
 
     let revealed = false;
     function revealCta() {
