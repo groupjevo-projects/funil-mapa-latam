@@ -328,6 +328,10 @@
       font-weight: 700;
     }
 
+    .price-installments .installments-amount {
+      color: #25d366;
+    }
+
     .price del {
       order: 3;
       margin-left: auto;
@@ -1096,6 +1100,7 @@
     .check { background: #f04c9a; }
     .price { border-color: rgba(244, 184, 221, .18); }
     .price-installments { color: #ffffff; }
+    .price-installments .installments-amount { color: #25d366; }
     .price del { color: #ff6b6b; }
     .price small { color: #b9aeb8; }
     .price strong { color: #25d366; }
@@ -1187,7 +1192,7 @@
     const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
     const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
     // Enlace del checkout de Hotmart (oferta "Pompoarismo de las Diosas":
-    // US$47 al contado o 5 cuotas de US$15,67). Al hacer clic en el botón
+    // US$47 al contado o 5x de US$15,67). Al hacer clic en el botón
     // verde la persona va directo a este enlace.
     const CHECKOUT_URL = "https://pay.hotmart.com/S107305504E?off=m13u24pu";
 
@@ -1273,13 +1278,13 @@
         progress: 84,
         bot: [
           "Tu compra anterior y tu acceso ya están confirmados, aunque decidas no agregar nada.",
-          "Si eliges sumarlo, Pompoarismo de las Diosas queda disponible en el mismo acceso, por US$47 al contado o en 5 cuotas de US$15,67.",
+          "Si eliges sumarlo, Pompoarismo de las Diosas queda disponible en el mismo acceso, por US$47 al contado o en 5x de US$15,67.",
           "Material educativo. No sustituye orientación profesional. Explora a tu ritmo, con consentimiento, y detente ante dolor o incomodidad.",
           "Antes de decidir, algunas dudas frecuentes:",
           "¿Es otro producto? Sí, es un complemento opcional. Tu compra anterior y tu acceso ya están confirmados aunque no lo agregues.",
           "¿Se parece al Mapa o al Protocolo? No. El Mapa enseña una técnica de exploración masculina; el Protocolo te ayuda a crear el momento y proponerlo. Pompoarismo trabaja tu propio control corporal, ritmo y presencia.",
           "¿Necesito experiencia previa? No. El método parte de ejercicios progresivos y cada persona avanza a su ritmo.",
-          "¿Es otro cobro? Sí. Solo si aceptas agregarlo se cobra US$47 al contado o en 5 cuotas de US$15,67. No hay cobro adicional si eliges continuar solo con tus compras anteriores.",
+          "¿Es otro cobro? Sí. Solo si aceptas agregarlo se cobra US$47 al contado o en 5x de US$15,67. No hay cobro adicional si eliges continuar solo con tus compras anteriores.",
           "¿Y si siento dolor o incomodidad? Detén la práctica. Ante dolor, condiciones de salud, trauma o incomodidad persistente, busca a un profesional cualificado.",
           "¿Puedo entrar sin agregar nada? Sí. Tu acceso ya está confirmado y puedes ir directo a él cuando quieras."
         ],
@@ -1372,12 +1377,12 @@
             <li><span class="check">✓</span><span>Garantía de 7 días.</span></li>
           </ul>
           <div class="price">
-            <span class="price-installments">o 5 cuotas de US$15,67</span>
+            <span class="price-installments">5x de <span class="installments-amount">US$15,67</span></span>
             <strong>US$47</strong>
             <small>al contado</small>
             <del>US$147</del>
           </div>
-          <p class="video-caption">Al contado o en 5 cuotas · Acceso inmediato · Garantía de 7 días.</p>
+          <p class="video-caption">Al contado o en 5x · Acceso inmediato · Garantía de 7 días.</p>
         </div>
       `;
 
