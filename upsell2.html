@@ -1191,10 +1191,29 @@
     const avatarSrc = "/upsell2-sofia.webp";
     const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
     const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
-    // Enlace del checkout de Hotmart (oferta "Pompoarismo de las Diosas":
-    // US$47 al contado o 5x de US$15,67). Al hacer clic en el botón
-    // verde la persona va directo a este enlace.
+    // Al aceptar la oferta se monta el widget de Sales Funnel de Hotmart
+    // (checkout de 1 clic). Si no carga, se ofrece este enlace de respaldo
+    // (oferta "Pompoarismo de las Diosas": US$47 al contado o 5x de US$15,67).
     const CHECKOUT_URL = "https://pay.hotmart.com/S107305504E?off=m13u24pu";
+    const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
+
+    let hotmartLibPromise = null;
+    function loadHotmartElements() {
+      if (!hotmartLibPromise) {
+        hotmartLibPromise = new Promise(function (resolve, reject) {
+          const tag = document.createElement("script");
+          tag.src = HOTMART_ELEMENTS_LIB;
+          tag.async = true;
+          tag.onload = resolve;
+          tag.onerror = reject;
+          document.head.appendChild(tag);
+        });
+      }
+      return hotmartLibPromise;
+    }
+    // Se empieza a pedir la librería al abrir la página para que el widget
+    // aparezca al instante en el momento de la decisión.
+    loadHotmartElements().catch(function () {});
 
     const messagesEl = document.querySelector("#messages");
     const choicesEl = document.querySelector("#choices");
@@ -1433,6 +1452,59 @@
       scrollToBottom();
     }
 
+    function mountHotmartFunnel() {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.appendChild(avatarNode());
+
+      const card = document.createElement("div");
+      card.className = "bubble offer";
+      card.innerHTML = `
+        <div class="offer-body">
+          <span class="slot-label">Confirma tu compra de 1 clic</span>
+          <div class="hotmart-slot">
+            <div id="hotmart-sales-funnel"></div>
+            <div id="hotmart-fallback" hidden>
+              <p class="slot-label">No pudimos cargar las opciones de pago.</p>
+              <a class="choice primary" href="${CHECKOUT_URL}" rel="nofollow">Ir al checkout</a>
+              <button class="choice secondary" type="button" data-skip>Continuar a mi acceso</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      row.appendChild(card);
+      messagesEl.appendChild(row);
+
+      const funnelEl = card.querySelector("#hotmart-sales-funnel");
+      const fallbackEl = card.querySelector("#hotmart-fallback");
+      card.querySelector("[data-skip]").addEventListener("click", () => goTo("thanks"));
+
+      function showFallback() {
+        if (fallbackEl.hidden) {
+          funnelEl.hidden = true;
+          fallbackEl.hidden = false;
+          scrollToBottom();
+        }
+      }
+
+      // El widget de Hotmart dibuja aquí sus propios botones de aceptar y
+      // rechazar y se encarga del cobro en 1 clic.
+      loadHotmartElements()
+        .then(function () {
+          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
+        })
+        .catch(showFallback);
+
+      // Si el widget no pinta nada (bloqueado, sin token de compra en la URL,
+      // error de Hotmart), el chat no puede quedarse sin salida.
+      window.setTimeout(function () {
+        if (!funnelEl.childElementCount) showFallback();
+      }, 7000);
+
+      scrollToBottom();
+    }
+
     function addTyping() {
       const row = document.createElement("div");
       row.className = "row";
@@ -1480,7 +1552,8 @@
       }
 
       if (choice.action === "checkout") {
-        window.location.href = CHECKOUT_URL;
+        await sleep(180);
+        mountHotmartFunnel();
         return;
       }
 

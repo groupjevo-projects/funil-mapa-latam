@@ -19,14 +19,15 @@ checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
 
 | Etapa      | Rota          | Arquivo          | Status                    |
 |------------|---------------|------------------|---------------------------|
-| Upsell 1   | `/upsell1`    | `upsell1.html`   | no ar, widget integrado   |
+| Upsell 1   | `/upsell1`    | `upsell1.html`   | chat antigo, no ar        |
+| Upsell 1 (novo) | `/up1`   | `up1.html`       | página estilo VSL; widget `salesFunnel` no botão verde; falta player VTURB e publicar oferta no Hotmart |
 | Downsell 1 | `/downsell1`  | —                | aguardando a estrutura    |
-| Upsell 2   | `/upsell2`    | `upsell2.html`   | rota adicionada no `vercel.json`; copy Pompoarismo de las Diosas; falta cadastrar URL no Hotmart e publicar |
+| Upsell 2   | `/upsell2` `/up2` | `upsell2.html` | copy Pompoarismo de las Diosas; widget `salesFunnel` no botão verde; falta cadastrar oferta no Hotmart |
 | Downsell 2 | `/downsell2`  | —                | aguardando a estrutura    |
 
-> Upsell 2 = **Pompoarismo de las Diosas** (US$47, pago único, garantia 7 dias, âncora US$147).
+> Upsell 2 = **Pompoarismo de las Diosas** (US$47 à vista ou 5x de US$15,67, garantia 7 dias, âncora US$147).
 > A oferta antiga "Cofre Secreto de la Pasión" saiu da rota `/upsell2` e ficou em `cofre-secreto/` (sem rewrite público).
-> **Diferença de mecânica:** o `upsell2.html` NÃO usa o widget `salesFunnel` embutido. O botão verde final redireciona direto (`window.location`) para `CHECKOUT_URL` — link de checkout do Hotmart da oferta Pompoarismo. Esse link precisa ser preenchido no arquivo (hoje é placeholder `PENDIENTE-LINK-CHECKOUT-POMPOARISMO-US47`).
+> **Mecânica do checkout (up1.html e upsell2.html):** ao clicar no botão verde, monta-se o widget `salesFunnel` do Hotmart (`checkout.hotmart.com/lib/hotmart-checkout-elements.js` → `checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')`) — checkout de 1 clique. O widget só pinta se a pessoa chegar com token de compra na URL, vindo do passo anterior do funil no painel Hotmart. Sem isso, cai num fallback ("Reintentar" / "Ir al checkout").
 
 ## Como adicionar uma etapa nova
 

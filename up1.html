@@ -160,6 +160,48 @@
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
+    /* Widget de Sales Funnel de Hotmart (checkout de 1 clic) */
+    #hotmartMount { width: 100%; }
+    #hotmartMount[hidden] { display: none; }
+
+    #hotmart-sales-funnel:empty {
+      min-height: 90px;
+      display: grid;
+      place-items: center;
+    }
+    #hotmart-sales-funnel:empty::after {
+      content: "Cargando tus opciones…";
+      color: rgba(255, 240, 221, 0.55);
+      font-size: 0.9rem;
+    }
+    #hotmart-sales-funnel iframe,
+    #hotmart-sales-funnel img {
+      width: 100%;
+      max-width: 100%;
+      border: 0;
+      display: block;
+    }
+
+    #hotmartFallback { display: grid; gap: 10px; margin-top: 10px; }
+    #hotmartFallback[hidden] { display: none; }
+    #hotmartFallback .slot-label {
+      margin: 0;
+      color: rgba(255, 240, 221, 0.6);
+      font-size: 0.82rem;
+    }
+    #hotmartFallback .fb-btn {
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #100c0a;
+      color: var(--cream);
+      font: 700 0.9rem Arial, Helvetica, sans-serif;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+    }
+
     @media (max-width: 420px) {
       .vsl-section { padding: 18px 16px 24px; }
       .vsl-section h1 { max-width: 24ch; }
@@ -181,16 +223,24 @@
       </div>
 
       <div class="cta-wrap" id="ctaWrap" hidden>
-        <a class="checkout-btn" id="checkoutBtn" href="#" rel="nofollow">Sí, quiero el Protocolo Reconexión</a>
+        <button class="checkout-btn" id="checkoutBtn" type="button">Sí, quiero el Protocolo Reconexión</button>
+        <div id="hotmartMount" hidden>
+          <div id="hotmart-sales-funnel"></div>
+          <div id="hotmartFallback" hidden>
+            <p class="slot-label">No pudimos cargar las opciones de pago.</p>
+            <button class="fb-btn" type="button" id="fbRetry">Reintentar</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <script>
-    // ---- Configuración (rellenar antes de enviar tráfico) ----
-    // TODO owner: enlace real del checkout de Hotmart (oferta "Protocolo
-    // Reconexión en Pareja", US$39).
-    const CHECKOUT_URL = "https://pay.hotmart.com/PENDIENTE-LINK-CHECKOUT-PROTOCOLO-US39";
+    // ---- Configuración ----
+    // Al hacer clic en el botón verde se monta el widget de Sales Funnel de
+    // Hotmart (checkout de 1 clic). No usa enlace: Hotmart identifica la
+    // oferta por el token de compra que trae la URL desde el paso anterior.
+    const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
     // TODO owner: player VTURB del VSL de Upsell 1. Con ambos vacíos se
     // muestra el marcador sin video.
     const VTURB_PLAYER_ID = "";
@@ -205,7 +255,41 @@
     const playerEl = document.getElementById("vslPlayer");
     const placeholder = document.getElementById("vslPlaceholder");
 
-    checkoutBtn.setAttribute("href", CHECKOUT_URL);
+    let hotmartLibPromise = null;
+    function loadHotmartElements() {
+      if (!hotmartLibPromise) {
+        hotmartLibPromise = new Promise(function (resolve, reject) {
+          const tag = document.createElement("script");
+          tag.src = HOTMART_ELEMENTS_LIB;
+          tag.async = true;
+          tag.onload = resolve;
+          tag.onerror = reject;
+          document.head.appendChild(tag);
+        });
+      }
+      return hotmartLibPromise;
+    }
+    loadHotmartElements().catch(function () {});
+
+    checkoutBtn.addEventListener("click", function () {
+      checkoutBtn.hidden = true;
+      const mount = document.getElementById("hotmartMount");
+      const funnelEl = document.getElementById("hotmart-sales-funnel");
+      const fallback = document.getElementById("hotmartFallback");
+      mount.hidden = false;
+      document.getElementById("fbRetry").addEventListener("click", function () {
+        window.location.reload();
+      });
+      loadHotmartElements()
+        .then(function () {
+          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
+        })
+        .catch(function () { fallback.hidden = false; });
+      window.setTimeout(function () {
+        if (!funnelEl.childElementCount) fallback.hidden = false;
+      }, 7000);
+      mount.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
 
     let revealed = false;
     function revealCta() {
