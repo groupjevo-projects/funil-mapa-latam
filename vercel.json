@@ -33,6 +33,14 @@
       "destination": "/up1.html"
     },
     {
+      "source": "/down1",
+      "destination": "/down1.html"
+    },
+    {
+      "source": "/down1/",
+      "destination": "/down1.html"
+    },
+    {
       "source": "/tks",
       "destination": "/tks.html"
     },

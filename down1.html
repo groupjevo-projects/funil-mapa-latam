@@ -202,6 +202,12 @@
       cursor: pointer;
     }
 
+    .cta-note {
+      margin: 10px 0 0;
+      color: rgba(255, 240, 221, 0.5);
+      font-size: 0.8rem;
+    }
+
     @media (max-width: 420px) {
       .vsl-section { padding: 18px 16px 24px; }
       .vsl-section h1 { max-width: 24ch; }
@@ -211,10 +217,10 @@
 </head>
 <body>
   <main class="page">
-    <section class="vsl-section" aria-label="Recomendación opcional: Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días">
+    <section class="vsl-section" aria-label="Condición especial: Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días">
       <!-- BORRADOR — refinar copy -->
-      <h1>¡Felicitaciones! Tu acceso al Mapa del Placer Masculino ya quedó reservado</h1>
-      <span class="subhead-bar">Pero antes necesito darte un aviso</span>
+      <h1>Sé que el precio quizá te hizo pensarlo dos veces</h1>
+      <span class="subhead-bar">Antes de que te vayas, mira esto</span>
 
       <div class="vsl-player" id="vslPlayer">
         <div class="vsl-placeholder" id="vslPlaceholder">
@@ -223,7 +229,8 @@
       </div>
 
       <div class="cta-wrap" id="ctaWrap" hidden>
-        <button class="checkout-btn" id="checkoutBtn" type="button">Sí, quiero el Protocolo Reconexión</button>
+        <button class="checkout-btn" id="checkoutBtn" type="button">Sí, quiero aprovechar la condición especial</button>
+        <p class="cta-note" id="ctaNote">Pago único de US$19,50 · sin cuotas</p>
         <div id="hotmartMount" hidden>
           <div id="hotmart-sales-funnel"></div>
           <div id="hotmartFallback" hidden>
@@ -241,14 +248,15 @@
     // Hotmart (checkout de 1 clic). No usa enlace: Hotmart identifica la
     // oferta por el token de compra que trae la URL desde el paso anterior.
     const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
-    // TODO owner: player VTURB del VSL de Upsell 1. Con ambos vacíos se
+    // TODO owner: player VTURB del VSL del Downsell 1. Con ambos vacíos se
     // muestra el marcador sin video.
     const VTURB_PLAYER_ID = "";
     const VTURB_PLAYER_SCRIPT = "";
-    // El botón de compra aparece cuando el VSL llega a este punto: 7:02.
-    const REVEAL_AT_SECONDS = 422;
-    // Sin player no hay video que llegue a los 422s, así que el botón queda
-    // oculto. Para revisar el diseño del botón: abrir la página con ?preview=1.
+    // El botón aparece cuando el VSL llega a este punto (segundos). 0 = apenas
+    // empieza el video. Ajustar cuando esté el VSL del downsell.
+    const REVEAL_AT_SECONDS = 0;
+    // Sin player el botón queda oculto. Para revisar el diseño: abrir la
+    // página con ?preview=1.
 
     const ctaWrap = document.getElementById("ctaWrap");
     const checkoutBtn = document.getElementById("checkoutBtn");
@@ -273,6 +281,8 @@
 
     checkoutBtn.addEventListener("click", function () {
       checkoutBtn.hidden = true;
+      const note = document.getElementById("ctaNote");
+      if (note) note.hidden = true;
       const mount = document.getElementById("hotmartMount");
       const funnelEl = document.getElementById("hotmart-sales-funnel");
       const fallback = document.getElementById("hotmartFallback");
@@ -314,8 +324,6 @@
     }
 
     function watchVideoTime() {
-      // Igual que la página de ventas: revelar el botón cuando el VSL llega
-      // al punto de oferta.
       const timer = setInterval(function () {
         const sp = window.smartplayer;
         const instances = sp && sp.instances;
