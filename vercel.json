@@ -9,6 +9,22 @@
       "destination": "/upsell1.html"
     },
     {
+      "source": "/upsell2",
+      "destination": "/upsell2.html"
+    },
+    {
+      "source": "/upsell2/",
+      "destination": "/upsell2.html"
+    },
+    {
+      "source": "/up2",
+      "destination": "/upsell2.html"
+    },
+    {
+      "source": "/up2/",
+      "destination": "/upsell2.html"
+    },
+    {
       "source": "/tks",
       "destination": "/tks.html"
     },

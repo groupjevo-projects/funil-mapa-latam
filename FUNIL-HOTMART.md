@@ -21,8 +21,12 @@ checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
 |------------|---------------|------------------|---------------------------|
 | Upsell 1   | `/upsell1`    | `upsell1.html`   | no ar, widget integrado   |
 | Downsell 1 | `/downsell1`  | —                | aguardando a estrutura    |
-| Upsell 2   | `/upsell2`    | —                | aguardando a estrutura    |
+| Upsell 2   | `/upsell2`    | `upsell2.html`   | rota adicionada no `vercel.json`; copy Pompoarismo de las Diosas; falta cadastrar URL no Hotmart e publicar |
 | Downsell 2 | `/downsell2`  | —                | aguardando a estrutura    |
+
+> Upsell 2 = **Pompoarismo de las Diosas** (US$47, pago único, garantia 7 dias, âncora US$147).
+> A oferta antiga "Cofre Secreto de la Pasión" saiu da rota `/upsell2` e ficou em `cofre-secreto/` (sem rewrite público).
+> **Diferença de mecânica:** o `upsell2.html` NÃO usa o widget `salesFunnel` embutido. O botão verde final redireciona direto (`window.location`) para `CHECKOUT_URL` — link de checkout do Hotmart da oferta Pompoarismo. Esse link precisa ser preenchido no arquivo (hoje é placeholder `PENDIENTE-LINK-CHECKOUT-POMPOARISMO-US47`).
 
 ## Como adicionar uma etapa nova
 
