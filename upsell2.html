@@ -315,23 +315,36 @@
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: 8px;
+      gap: 6px 8px;
       padding-top: 12px;
       border-top: 1px solid var(--line);
     }
 
+    .price-installments {
+      flex-basis: 100%;
+      margin-bottom: 2px;
+      color: #ffffff;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
     .price del {
-      color: var(--muted);
-      font-size: 0.9rem;
+      order: 3;
+      margin-left: auto;
+      align-self: flex-start;
+      color: #e23b3b;
+      font-size: 0.78rem;
     }
 
     .price strong {
+      order: 1;
       color: var(--red-dark);
-      font-size: 1.55rem;
+      font-size: 1.8rem;
       line-height: 1;
     }
 
     .price small {
+      order: 2;
       color: var(--muted);
       font-size: 0.82rem;
     }
@@ -1082,7 +1095,8 @@
     .stack li { color: #b9aeb8; }
     .check { background: #f04c9a; }
     .price { border-color: rgba(244, 184, 221, .18); }
-    .price del { color: rgba(37, 211, 102, .72); }
+    .price-installments { color: #ffffff; }
+    .price del { color: #ff6b6b; }
     .price small { color: #b9aeb8; }
     .price strong { color: #25d366; }
     .hotmart-slot { border-color: rgba(240, 76, 154, .35); background: #100e13; }
@@ -1172,10 +1186,10 @@
     const avatarSrc = "/upsell2-sofia.webp";
     const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
     const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
-    // TODO owner: sustituir por el enlace real del checkout de Hotmart
-    // (oferta "Pompoarismo de las Diosas", pago único US$47). Al hacer clic en
-    // el botón verde la persona va directo a este enlace.
-    const CHECKOUT_URL = "https://pay.hotmart.com/PENDIENTE-LINK-CHECKOUT-POMPOARISMO-US47";
+    // Enlace del checkout de Hotmart (oferta "Pompoarismo de las Diosas":
+    // US$47 al contado o 5 cuotas de US$15,67). Al hacer clic en el botón
+    // verde la persona va directo a este enlace.
+    const CHECKOUT_URL = "https://pay.hotmart.com/S107305504E?off=m13u24pu";
 
     const messagesEl = document.querySelector("#messages");
     const choicesEl = document.querySelector("#choices");
@@ -1259,13 +1273,13 @@
         progress: 84,
         bot: [
           "Tu compra anterior y tu acceso ya están confirmados, aunque decidas no agregar nada.",
-          "Si eliges sumarlo, Pompoarismo de las Diosas queda disponible en el mismo acceso, con pago único de US$47.",
+          "Si eliges sumarlo, Pompoarismo de las Diosas queda disponible en el mismo acceso, por US$47 al contado o en 5 cuotas de US$15,67.",
           "Material educativo. No sustituye orientación profesional. Explora a tu ritmo, con consentimiento, y detente ante dolor o incomodidad.",
           "Antes de decidir, algunas dudas frecuentes:",
           "¿Es otro producto? Sí, es un complemento opcional. Tu compra anterior y tu acceso ya están confirmados aunque no lo agregues.",
           "¿Se parece al Mapa o al Protocolo? No. El Mapa enseña una técnica de exploración masculina; el Protocolo te ayuda a crear el momento y proponerlo. Pompoarismo trabaja tu propio control corporal, ritmo y presencia.",
           "¿Necesito experiencia previa? No. El método parte de ejercicios progresivos y cada persona avanza a su ritmo.",
-          "¿Es otro cobro? Sí. Solo si aceptas agregarlo se hace un pago único de US$47. No hay cobro adicional si eliges continuar solo con tus compras anteriores.",
+          "¿Es otro cobro? Sí. Solo si aceptas agregarlo se cobra US$47 al contado o en 5 cuotas de US$15,67. No hay cobro adicional si eliges continuar solo con tus compras anteriores.",
           "¿Y si siento dolor o incomodidad? Detén la práctica. Ante dolor, condiciones de salud, trauma o incomodidad persistente, busca a un profesional cualificado.",
           "¿Puedo entrar sin agregar nada? Sí. Tu acceso ya está confirmado y puedes ir directo a él cuando quieras."
         ],
@@ -1358,11 +1372,12 @@
             <li><span class="check">✓</span><span>Garantía de 7 días.</span></li>
           </ul>
           <div class="price">
-            <del>US$147</del>
+            <span class="price-installments">o 5 cuotas de US$15,67</span>
             <strong>US$47</strong>
-            <small>pago único</small>
+            <small>al contado</small>
+            <del>US$147</del>
           </div>
-          <p class="video-caption">Pago único · Acceso inmediato · Garantía de 7 días.</p>
+          <p class="video-caption">Al contado o en 5 cuotas · Acceso inmediato · Garantía de 7 días.</p>
         </div>
       `;
 
