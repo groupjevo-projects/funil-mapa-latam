@@ -107,8 +107,11 @@
       margin: 22px auto 0;
     }
 
-    .checkout-btn {
+    .checkout-btn,
+    #kiwify-upsell-trigger-TzIL3yM {
       display: inline-block;
+      border: 0;
+      cursor: pointer;
       width: 100%;
       padding: 16px 22px;
       border-radius: 8px;
@@ -127,7 +130,9 @@
     }
 
     .checkout-btn:hover,
-    .checkout-btn:focus-visible {
+    .checkout-btn:focus-visible,
+    #kiwify-upsell-trigger-TzIL3yM:hover,
+    #kiwify-upsell-trigger-TzIL3yM:focus-visible {
       background: #1eb257;
       outline: 0;
     }
@@ -138,46 +143,23 @@
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* Widget de Sales Funnel de Hotmart (checkout de 1 clic) */
-    #hotmartMount { width: 100%; }
-    #hotmartMount[hidden] { display: none; }
+    /* Widget de upsell de 1 clic de Kiwify */
+    #kiwify-upsell-TzIL3yM { width: 100%; }
 
-    #hotmart-sales-funnel:empty {
-      min-height: 90px;
-      display: grid;
-      place-items: center;
-    }
-    #hotmart-sales-funnel:empty::after {
-      content: "Cargando tus opciones…";
+    /* El rechazo: visible, pero sin competir con el boton verde. */
+    #kiwify-upsell-cancel-trigger-TzIL3yM {
+      margin-top: 14px;
       color: rgba(255, 240, 221, 0.55);
-      font-size: 0.9rem;
-    }
-    #hotmart-sales-funnel iframe,
-    #hotmart-sales-funnel img {
-      width: 100%;
-      max-width: 100%;
-      border: 0;
-      display: block;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      text-align: center;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
     }
 
-    #hotmartFallback { display: grid; gap: 10px; margin-top: 10px; }
-    #hotmartFallback[hidden] { display: none; }
-    #hotmartFallback .slot-label {
-      margin: 0;
-      color: rgba(255, 240, 221, 0.6);
-      font-size: 0.82rem;
-    }
-    #hotmartFallback .fb-btn {
-      padding: 12px 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #100c0a;
-      color: var(--cream);
-      font: 700 0.9rem Arial, Helvetica, sans-serif;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      text-align: center;
-      cursor: pointer;
+    #kiwify-upsell-cancel-trigger-TzIL3yM:hover {
+      color: rgba(255, 240, 221, 0.8);
     }
 
     @media (max-width: 420px) {
@@ -207,13 +189,9 @@
       </div>
 
       <div class="cta-wrap" id="ctaWrap" hidden>
-        <button class="checkout-btn" id="checkoutBtn" type="button">Sí, quiero el Protocolo Reconexión</button>
-        <div id="hotmartMount" hidden>
-          <div id="hotmart-sales-funnel"></div>
-          <div id="hotmartFallback" hidden>
-            <p class="slot-label">No pudimos cargar las opciones de pago.</p>
-            <button class="fb-btn" type="button" id="fbRetry">Reintentar</button>
-          </div>
+        <div id="kiwify-upsell-TzIL3yM" data-upsell-url="https://mapadelplacer.site/up2" data-downsell-url="https://mapadelplacer.site/down1" style="--kiwify-upsell-accept-bg:#27AF60;--kiwify-upsell-accept-color:#FFFFFF">
+          <button id="kiwify-upsell-trigger-TzIL3yM">Sí, quiero el Protocolo Reconexión</button>
+          <div id="kiwify-upsell-cancel-trigger-TzIL3yM">No, depender solo de mis manos</div>
         </div>
       </div>
     </section>
@@ -221,52 +199,15 @@
 
   <script>
     // ---- Configuración ----
-    // Al hacer clic en el botón verde se monta el widget de Sales Funnel de
-    // Hotmart (checkout de 1 clic). No usa enlace: Hotmart identifica la
-    // oferta por el token de compra que trae la URL desde el paso anterior.
-    const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
+    // El checkout es el widget de upsell de 1 clic de Kiwify. No lleva enlace:
+    // Kiwify reconoce la compra del paso anterior y cobra en un clic. A dónde
+    // va después se declara en el propio <div>: data-upsell-url si acepta,
+    // data-downsell-url si rechaza.
     // El botón de compra aparece cuando el VSL llega al pitch de precio:
     // 6:35 = 395 s. Para revisar el botón sin esperar: abrir con ?preview=1.
     const REVEAL_AT_SECONDS = 395;
 
     const ctaWrap = document.getElementById("ctaWrap");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-
-    let hotmartLibPromise = null;
-    function loadHotmartElements() {
-      if (!hotmartLibPromise) {
-        hotmartLibPromise = new Promise(function (resolve, reject) {
-          const tag = document.createElement("script");
-          tag.src = HOTMART_ELEMENTS_LIB;
-          tag.async = true;
-          tag.onload = resolve;
-          tag.onerror = reject;
-          document.head.appendChild(tag);
-        });
-      }
-      return hotmartLibPromise;
-    }
-    loadHotmartElements().catch(function () {});
-
-    checkoutBtn.addEventListener("click", function () {
-      checkoutBtn.hidden = true;
-      const mount = document.getElementById("hotmartMount");
-      const funnelEl = document.getElementById("hotmart-sales-funnel");
-      const fallback = document.getElementById("hotmartFallback");
-      mount.hidden = false;
-      document.getElementById("fbRetry").addEventListener("click", function () {
-        window.location.reload();
-      });
-      loadHotmartElements()
-        .then(function () {
-          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
-        })
-        .catch(function () { fallback.hidden = false; });
-      window.setTimeout(function () {
-        if (!funnelEl.childElementCount) fallback.hidden = false;
-      }, 7000);
-      mount.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    });
 
     let revealed = false;
     function revealCta() {
@@ -306,5 +247,7 @@
       watchVideoTime();
     }
   </script>
+
+  <script src="https://snippets.kiwify.com/upsell-v2/upsell.min.js"></script>
 </body>
 </html>
