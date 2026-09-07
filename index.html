@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es-419">
   <head>
-    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" async defer data-utmify-prevent-subids data-utmify-replace-links="pay.hotmart.com"></script>
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" async defer data-utmify-prevent-subids data-utmify-replace-links="pay.kiwify.com"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Una experiencia de desbloqueo, clase y contenido educativo continuo." />
@@ -55,10 +55,17 @@
         };
 
         // Single source of truth for checkout clicks - the links carry no inline handler.
+        // Los dominios de pago cambian de plataforma. Se listan aqui para que el
+        // evento no dependa de que la palabra "checkout" aparezca en la URL.
+        var CHECKOUT_HOSTS = ['pay.kiwify.com', 'pay.hotmart.com', 'pay.mycheckoutt.com', 'checkout.'];
         document.addEventListener('click', function (e) {
           var link = e.target && e.target.closest && e.target.closest('a');
-          if (link && link.href && link.href.indexOf('checkout') !== -1) {
-            window.trackFunnel.track('click_checkout');
+          if (!link || !link.href) return;
+          for (var i = 0; i < CHECKOUT_HOSTS.length; i++) {
+            if (link.href.indexOf(CHECKOUT_HOSTS[i]) !== -1) {
+              window.trackFunnel.track('click_checkout');
+              return;
+            }
           }
         });
       })();
@@ -80,7 +87,7 @@
 
     <div id="root"></div>
     <div id="checkout-btn-wrapper" style="display: none; text-align: center; margin-top: 25px; padding-bottom: 40px; width: 100%; position: relative; z-index: 50;">
-        <a href="https://pay.mycheckoutt.com/019ecd07-c319-7138-abe8-82716dd2af22?ref=" class="checkout-btn">SÍ, QUIERO ASEGURAR MI ACCESO AHORA</a>
+        <a href="https://pay.kiwify.com/kuMcuGq" class="checkout-btn">SÍ, QUIERO ASEGURAR MI ACCESO AHORA</a>
     </div>
     <script>
       // The sales pitch starts at 5:55 of the VSL, so that is when the checkout
