@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de las Diosas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0a14;
+            --rose-gold: #f472b6;
+            --warm-gold: #fbbf24;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--warm-gold);
+        }
+
+        .highlight-rose {
+            color: var(--rose-gold);
+        }
+
+        /* Nav Badge */
+        .nav-badge {
+            background: linear-gradient(90deg, rgba(244,114,182,0.1) 0%, rgba(251,191,36,0.1) 100%);
+            border-bottom: 1px solid rgba(251,191,36,0.2);
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 1px;
+            color: var(--warm-gold);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(244,114,182,0.1) 0%, rgba(15,10,20,1) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--warm-gold), #d97706);
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(251,191,36,0.3);
+        }
+
+        /* Quiz Funnel */
+        #quiz-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15,10,20,0.95);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        #quiz-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .quiz-container {
+            background: #1a1224;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(244,114,182,0.2);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .quiz-question {
+            display: none;
+        }
+
+        .quiz-question.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .quiz-question h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--rose-gold);
+        }
+
+        .quiz-btn {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-light);
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-btn:hover {
+            background: rgba(244,114,182,0.1);
+            border-color: var(--rose-gold);
+            color: var(--rose-gold);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        /* Problem Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #1a1224;
+            padding: 30px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(251,191,36,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(251,191,36,0.5);
+        }
+
+        .card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--rose-gold);
+        }
+
+        /* Solution */
+        .solution-box {
+            background: linear-gradient(135deg, rgba(244,114,182,0.05) 0%, rgba(251,191,36,0.05) 100%);
+            border: 1px solid rgba(251,191,36,0.2);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .solution-box p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Modules */
+        .modules {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .module {
+            background: #1a1224;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--warm-gold);
+        }
+
+        .module h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Bio */
+        .bio {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: #1a1224;
+            padding: 40px;
+            border-radius: 20px;
+            flex-wrap: wrap;
+        }
+
+        .bio img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--rose-gold);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial {
+            background: rgba(255,255,255,0.02);
+            padding: 30px;
+            border-radius: 15px;
+            font-style: italic;
+        }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 20px 0;
+        }
+
+        .faq-item h4 {
+            color: var(--warm-gold);
+            margin-bottom: 10px;
+        }
+
+        /* Pricing */
+        .pricing {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(15,10,20,1) 0%, rgba(244,114,182,0.1) 100%);
+        }
+
+        .price {
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--warm-gold);
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Particles */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .bio { justify-content: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <div class="nav-badge">
+        Bienestar Femenino · Guía Práctica · Acceso Inmediato
+    </div>
+
+    <section class="hero scroll-reveal">
+        <h1>El método que las <span class="highlight">diosas</span> conocen: fortalece tu cuerpo desde adentro</h1>
+        <p>Una guía paso a paso para el fortalecimiento del suelo pélvico y la conciencia corporal femenina. Ejercicios recomendados por profesionales de la salud.</p>
+        <button class="btn" onclick="startQuiz()">Quiero comenzar ahora</button>
+    </section>
+
+    <section class="section scroll-reveal">
+        <h2 class="section-title">¿Sientes que algo no está bien?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h4>Suelo pélvico débil</h4>
+                <p>Especialmente después del parto o por falta de ejercicio específico, afectando tu día a día.</p>
+            </div>
+            <div class="card">
+                <h4>Dolor de espalda</h4>
+                <p>Mala postura y falta de soporte desde el núcleo central de tu cuerpo.</p>
+            </div>
+            <div class="card">
+                <h4>Desconexión corporal</h4>
+                <p>Sentir que no tienes control ni conciencia sobre tu propio cuerpo.</p>
+            </div>
+            <div class="card">
+                <h4>Falta de confianza</h4>
+                <p>Inseguridad física que se refleja en tu presencia y bienestar emocional.</p>
+            </div>
+        </div>
+
+        <div class="solution-box scroll-reveal">
+            <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--rose-gold);">La Solución Está en Ti</h3>
+            <p>El suelo pélvico es el centro de la fuerza femenina. Cuando lo fortaleces y tomas conciencia de él, todo cambia. Tu postura mejora, tu energía fluye de manera diferente, recuperas la confianza en ti misma y alcanzas un bienestar físico y emocional integral. No es magia, es anatomía y salud pélvica.</p>
+        </div>
+    </section>
+
+    <section class="section scroll-reveal">
+        <h2 class="section-title">¿Qué aprenderás en este e-book?</h2>
+        <div class="modules">
+            <div class="module">
+                <h4>Módulo 1: Tu suelo pélvico</h4>
+                <p>Qué es, dónde está y por qué es fundamental para la salud femenina (anatomía básica explicada de forma sencilla).</p>
+            </div>
+            <div class="module">
+                <h4>Módulo 2: Los ejercicios de las diosas</h4>
+                <p>Guía paso a paso de ejercicios de fortalecimiento del suelo pélvico (Kegel y más allá) de forma segura y efectiva.</p>
+            </div>
+            <div class="module">
+                <h4>Módulo 3: Respiración y cuerpo consciente</h4>
+                <p>Técnicas de respiración para conectar profundamente con la base de tu cuerpo.</p>
+            </div>
+            <div class="module">
+                <h4>Módulo 4: Postura y presencia</h4>
+                <p>Cómo la fuerza pélvica transforma tu postura, alivia dolores de espalda y mejora tu presencia física.</p>
+            </div>
+            <div class="module">
+                <h4>Módulo 5: Reconectar con tu cuerpo</h4>
+                <p>Ejercicios de mindfulness y autoimagen para recuperar la confianza y el amor propio.</p>
+            </div>
+            <div class="module">
+                <h4>Módulo 6: Tu rutina de 21 días</h4>
+                <p>Un plan de práctica diaria estructurado para incorporar estos hábitos a tu vida.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section scroll-reveal">
+        <div class="bio">
+            <img src="/up2w/assets/sofia-vilar.webp" alt="Sofía Vilar" onerror="this.src='https://via.placeholder.com/200x200/1a1224/f472b6?text=SV'">
+            <div>
+                <h3 style="font-size: 2rem; color: var(--warm-gold); margin-bottom: 10px;">Sofía Vilar</h3>
+                <h4 style="color: var(--rose-gold); margin-bottom: 15px;">Especialista en Bienestar Femenino</h4>
+                <p>He dedicado mi carrera a ayudar a cientos de mujeres a reconectar con su cuerpo a través de la educación somática y el fortalecimiento del suelo pélvico. Mi misión es que cada mujer descubra el poder de su propia anatomía de manera saludable, consciente y segura.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section scroll-reveal">
+        <h2 class="section-title">Transformaciones Reales</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>"Después de mi segundo embarazo, sentía mucha debilidad. Este método no solo fortaleció mi suelo pélvico, sino que mis dolores lumbares desaparecieron. Me siento increíble."</p>
+                <p style="margin-top: 15px; color: var(--warm-gold);">- Mariana R.</p>
+            </div>
+            <div class="testimonial">
+                <p>"Nunca pensé que hacer estos ejercicios cambiaría tanto mi postura. Camino más derecha, tengo más energía y finalmente me siento conectada con mi propio cuerpo."</p>
+                <p style="margin-top: 15px; color: var(--warm-gold);">- Valeria Gómez</p>
+            </div>
+            <div class="testimonial">
+                <p>"Es una guía súper respetuosa y clara. Los ejercicios son fáciles de seguir y los beneficios en mi bienestar emocional han sido tan grandes como los físicos."</p>
+                <p style="margin-top: 15px; color: var(--warm-gold);">- Carmen L.</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);">*Los resultados pueden variar de persona a persona.</p>
+    </section>
+
+    <section class="pricing scroll-reveal" id="checkout">
+        <h2>Accede al Método de las Diosas</h2>
+        <div class="price">$47</div>
+        <p style="margin-bottom: 30px;">Pago único. Acceso inmediato al e-book (PDF).</p>
+        <button class="btn" onclick="window.location.href='https://pay.kiwify.com/EEpapef'">Comprar Ahora con 7 Días de Garantía</button>
+        <p style="margin-top: 20px; color: var(--text-muted); font-size: 0.9rem;">Garantía incondicional de 7 días. Si no estás satisfecha, te devolvemos tu dinero.</p>
+    </section>
+
+    <section class="section scroll-reveal">
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <div class="faq-item">
+            <h4>¿Es este contenido apropiado?</h4>
+            <p>Totalmente. Es contenido 100% educativo y enfocado en la salud y el bienestar de la mujer. El entrenamiento del suelo pélvico es recomendado por médicos, ginecólogos y fisioterapeutas pélvicos.</p>
+        </div>
+        <div class="faq-item">
+            <h4>¿En qué formato se entrega?</h4>
+            <p>Es un e-book en formato PDF, listo para descargar y leer en cualquier dispositivo celular, tablet o computadora.</p>
+        </div>
+        <div class="faq-item">
+            <h4>¿Cuánto tiempo toma la rutina diaria?</h4>
+            <p>Solo necesitarás entre 10 y 15 minutos al día para completar los ejercicios propuestos en el plan de 21 días.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>Aviso Importante:</strong> Este producto tiene fines puramente educativos. La información proporcionada no sustituye el consejo, diagnóstico o tratamiento médico profesional. Siempre busca el consejo de tu médico, fisioterapeuta pélvico u otro proveedor de salud calificado con cualquier pregunta que puedas tener respecto a una condición médica.</p>
+        <p style="margin-top: 15px;">&copy; 2024 Método de las Diosas. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Quiz Overlay -->
+    <div id="quiz-overlay">
+        <div class="quiz-container">
+            <div class="quiz-question active" id="q1">
+                <h3>¿Cuál es tu principal objetivo?</h3>
+                <button class="quiz-btn" onclick="nextQuestion(1)">Mejorar mi postura y dolor de espalda</button>
+                <button class="quiz-btn" onclick="nextQuestion(1)">Recuperación post-parto</button>
+                <button class="quiz-btn" onclick="nextQuestion(1)">Conectar con mi cuerpo</button>
+                <button class="quiz-btn" onclick="nextQuestion(1)">Fortalecimiento pélvico general</button>
+            </div>
+            <div class="quiz-question" id="q2">
+                <h3>¿Has practicado ejercicios de Kegel antes?</h3>
+                <button class="quiz-btn" onclick="nextQuestion(2)">Sí, de forma regular</button>
+                <button class="quiz-btn" onclick="nextQuestion(2)">Alguna vez, pero lo dejé</button>
+                <button class="quiz-btn" onclick="nextQuestion(2)">No, no sé cómo hacerlos</button>
+            </div>
+            <div class="quiz-question" id="q3">
+                <h3>¿Estás dispuesta a invertir 10 minutos al día para ti?</h3>
+                <button class="quiz-btn" onclick="finishQuiz()">¡Sí, estoy lista!</button>
+                <button class="quiz-btn" onclick="finishQuiz()">Quiero intentarlo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles JS config. Es sólo decoración de fondo: si el CDN externo
+        // no responde (bloqueado por un adblocker, red lenta), particlesJS
+        // queda indefinido. Sin este guard, la llamada de abajo lanza un
+        // error y el script entero se detiene ahí — incluida la revelación
+        // por scroll de la sección de checkout, que quedaría invisible para
+        // siempre (empieza en opacity:0 por CSS).
+        if (typeof particlesJS === "function") {
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": ["#f472b6", "#fbbf24"] },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.3, "random": true },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": { "enable": false },
+                    "move": { "enable": true, "speed": 1, "direction": "top", "random": true, "out_mode": "out" }
+                },
+                "interactivity": { "events": { "onhover": { "enable": false }, "onclick": { "enable": false } } },
+                "retina_detect": true
+            });
+        }
+
+        // Scroll Reveal
+        function checkScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveal.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // initial check
+
+        // Quiz Logic
+        function startQuiz() {
+            document.getElementById('quiz-overlay').classList.add('active');
+        }
+
+        function nextQuestion(current) {
+            document.getElementById('q' + current).classList.remove('active');
+            document.getElementById('q' + (current + 1)).classList.add('active');
+        }
+
+        function finishQuiz() {
+            document.getElementById('quiz-overlay').classList.remove('active');
+            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset quiz for next time
+            setTimeout(() => {
+                document.querySelectorAll('.quiz-question').forEach(q => q.classList.remove('active'));
+                document.getElementById('q1').classList.add('active');
+            }, 500);
+        }
+    </script>
+</body>
+</html>

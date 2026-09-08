@@ -49,6 +49,30 @@
       "destination": "/tks.html"
     },
     {
+      "source": "/w",
+      "destination": "/w/index.html"
+    },
+    {
+      "source": "/w/",
+      "destination": "/w/index.html"
+    },
+    {
+      "source": "/up1w",
+      "destination": "/up1w/index.html"
+    },
+    {
+      "source": "/up1w/",
+      "destination": "/up1w/index.html"
+    },
+    {
+      "source": "/up2w",
+      "destination": "/up2w/index.html"
+    },
+    {
+      "source": "/up2w/",
+      "destination": "/up2w/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
