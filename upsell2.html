@@ -428,12 +428,14 @@
       text-align: center;
     }
 
-    .hotmart-slot {
+    .checkout-slot {
       margin-top: 10px;
       padding: 12px;
       border: 1px dashed #c9bbb6;
       border-radius: var(--radius);
       background: #fbfaf8;
+      display: grid;
+      gap: 8px;
     }
 
     .slot-label {
@@ -918,7 +920,7 @@
       background: #f0fff8;
     }
 
-    .hotmart-slot {
+    .checkout-slot {
       border-color: #b9d9cc;
       background: #f7fffb;
     }
@@ -1104,42 +1106,8 @@
     .price del { color: #ff6b6b; }
     .price small { color: #b9aeb8; }
     .price strong { color: #25d366; }
-    .hotmart-slot { border-color: rgba(240, 76, 154, .35); background: #100e13; }
+    .checkout-slot { border-color: rgba(240, 76, 154, .35); background: #100e13; }
 
-    /* Contenedor del widget de Hotmart. Lo que va dentro lo dibuja Hotmart,
-       así que sólo se le da sitio, ancho completo y un estado de carga. */
-    #hotmart-sales-funnel {
-      width: 100%;
-      display: grid;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    #hotmart-sales-funnel:empty {
-      min-height: 96px;
-      place-items: center;
-    }
-
-    #hotmart-sales-funnel:empty::after {
-      content: "Cargando tus opciones…";
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    #hotmart-sales-funnel iframe,
-    #hotmart-sales-funnel img {
-      width: 100%;
-      max-width: 100%;
-      border: 0;
-      display: block;
-    }
-
-    #hotmart-fallback {
-      display: grid;
-      gap: 10px;
-    }
-
-    #hotmart-fallback[hidden] { display: none; }
     .slot-label,
     .video-caption { color: #b9aeb8; }
 
@@ -1184,6 +1152,19 @@
         <div id="choices" class="choices" aria-label="Opciones de respuesta"></div>
       </footer>
     </section>
+
+    <!--
+      El widget de Kiwify se declara aquí, oculto, desde la carga de la
+      página — no se crea por innerHTML dentro del chat. El script de
+      Kiwify sólo puede encontrar y activar el elemento si ya existe en el
+      DOM cuando corre; mountKiwifyWidget() se limita a MOVERLO (no a
+      clonarlo) dentro de la burbuja del chat, así conserva los listeners
+      que Kiwify le haya asignado.
+    -->
+    <div id="kiwify-upsell-EEpapef" data-upsell-url="" data-downsell-url="" style="--kiwify-upsell-accept-bg:#27AF60;--kiwify-upsell-accept-color:#FFFFFF" hidden>
+      <button id="kiwify-upsell-trigger-EEpapef" class="choice primary">Sí, quiero el Método de las Diosas</button>
+      <div id="kiwify-upsell-cancel-trigger-EEpapef" class="choice secondary">No, quiero depender solo de mis manos</div>
+    </div>
   </main>
 
   <script>
@@ -1191,29 +1172,13 @@
     const avatarSrc = "/upsell2-sofia.webp";
     const VTURB_PLAYER_SCRIPT = "https://scripts.converteai.net/078ca594-053b-427b-a22f-58f182182f25/players/6a8f684dbaae9f36546bdc5f/v4/player.js";
     const VTURB_PLAYER_ID = "vid-6a8f684dbaae9f36546bdc5f";
-    // Al aceptar la oferta se monta el widget de Sales Funnel de Hotmart
-    // (checkout de 1 clic). Si no carga, se ofrece este enlace de respaldo
-    // (oferta "Método de las Diosas": US$47 al contado o 5x de US$15,67).
-    const CHECKOUT_URL = "https://pay.hotmart.com/S107305504E?off=m13u24pu";
-    const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
-
-    let hotmartLibPromise = null;
-    function loadHotmartElements() {
-      if (!hotmartLibPromise) {
-        hotmartLibPromise = new Promise(function (resolve, reject) {
-          const tag = document.createElement("script");
-          tag.src = HOTMART_ELEMENTS_LIB;
-          tag.async = true;
-          tag.onload = resolve;
-          tag.onerror = reject;
-          document.head.appendChild(tag);
-        });
-      }
-      return hotmartLibPromise;
-    }
-    // Se empieza a pedir la librería al abrir la página para que el widget
-    // aparezca al instante en el momento de la decisión.
-    loadHotmartElements().catch(function () {});
+    // Al aceptar la oferta se muestra el widget de upsell de 1 clic de
+    // Kiwify (oferta "Método de las Diosas": US$47 al contado o 5x de
+    // US$15,67). No lleva enlace propio: Kiwify reconoce la compra
+    // anterior y cobra en un clic. El script que lo activa se carga al
+    // pie de la página (necesita que el <div id="kiwify-upsell-EEpapef">
+    // ya exista en el DOM, y para eso está declarado desde la carga,
+    // oculto, más abajo).
 
     const messagesEl = document.querySelector("#messages");
     const choicesEl = document.querySelector("#choices");
@@ -1309,7 +1274,7 @@
         ],
         offer: true,
         choices: [
-          { text: "SÍ, QUIERO AGREGAR POMPOARISMO DE LAS DIOSAS", action: "checkout", primary: true },
+          { text: "SÍ, QUIERO AGREGAR MÉTODO DE LAS DIOSAS", action: "checkout", primary: true },
           { text: "No, gracias. Prefiero continuar con el acceso que ya tengo.", next: "decline", secondary: true }
         ]
       },
@@ -1452,7 +1417,10 @@
       scrollToBottom();
     }
 
-    function mountHotmartFunnel() {
+    function mountKiwifyWidget() {
+      const widget = document.getElementById("kiwify-upsell-EEpapef");
+      if (!widget || !widget.hidden) return; // ya está montado (p. ej. desde "decline")
+
       const row = document.createElement("div");
       row.className = "row";
       row.appendChild(avatarNode());
@@ -1462,46 +1430,15 @@
       card.innerHTML = `
         <div class="offer-body">
           <span class="slot-label">Confirma tu compra de 1 clic</span>
-          <div class="hotmart-slot">
-            <div id="hotmart-sales-funnel"></div>
-            <div id="hotmart-fallback" hidden>
-              <p class="slot-label">No pudimos cargar las opciones de pago.</p>
-              <a class="choice primary" href="${CHECKOUT_URL}" rel="nofollow">Ir al checkout</a>
-              <button class="choice secondary" type="button" data-skip>Continuar a mi acceso</button>
-            </div>
-          </div>
+          <div class="checkout-slot"></div>
         </div>
       `;
 
+      widget.hidden = false;
+      card.querySelector(".checkout-slot").appendChild(widget);
+
       row.appendChild(card);
       messagesEl.appendChild(row);
-
-      const funnelEl = card.querySelector("#hotmart-sales-funnel");
-      const fallbackEl = card.querySelector("#hotmart-fallback");
-      card.querySelector("[data-skip]").addEventListener("click", () => goTo("thanks"));
-
-      function showFallback() {
-        if (fallbackEl.hidden) {
-          funnelEl.hidden = true;
-          fallbackEl.hidden = false;
-          scrollToBottom();
-        }
-      }
-
-      // El widget de Hotmart dibuja aquí sus propios botones de aceptar y
-      // rechazar y se encarga del cobro en 1 clic.
-      loadHotmartElements()
-        .then(function () {
-          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
-        })
-        .catch(showFallback);
-
-      // Si el widget no pinta nada (bloqueado, sin token de compra en la URL,
-      // error de Hotmart), el chat no puede quedarse sin salida.
-      window.setTimeout(function () {
-        if (!funnelEl.childElementCount) showFallback();
-      }, 7000);
-
       scrollToBottom();
     }
 
@@ -1553,7 +1490,7 @@
 
       if (choice.action === "checkout") {
         await sleep(180);
-        mountHotmartFunnel();
+        mountKiwifyWidget();
         return;
       }
 
@@ -1577,5 +1514,7 @@
 
     goTo("intro");
   </script>
+
+  <script src="https://snippets.kiwify.com/upsell-v2/upsell.min.js"></script>
 </body>
 </html>
