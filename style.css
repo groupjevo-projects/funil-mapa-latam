@@ -46,3 +46,12 @@
     70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
     100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
+
+.unlock-btn{margin:0 auto;cursor:pointer;-webkit-appearance:none;appearance:none;border:0;background:linear-gradient(180deg,#38c759,#1ea345);color:#fff;border-radius:999px;width:min(360px,100vw - 40px);min-height:64px;padding:18px 28px;font-size:17px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px #0004,inset 0 1px #ffffff55;transition:transform .12s ease,filter .12s ease;animation:unlockPulse 1.8s ease-in-out infinite}
+.unlock-btn-copy{pointer-events:none;line-height:1.15;text-align:center;color:#fff;text-shadow:0 1px 2px #0000004d}
+.unlock-btn:hover{filter:brightness(1.05)}
+.unlock-btn:active{transform:translateY(1px) scale(.99);animation:none}
+.unlock-btn:disabled,.unlock-btn.done{cursor:default;filter:saturate(.6) brightness(.95);animation:none}
+@keyframes unlockPulse{0%,100%{transform:scale(1);box-shadow:0 12px 28px #0004,inset 0 1px #ffffff55,0 0 0 0 #38c75966}50%{transform:scale(1.035);box-shadow:0 16px 34px #0005,inset 0 1px #ffffff55,0 0 0 12px #38c75900}}
+@media (prefers-reduced-motion:reduce){.unlock-btn{animation:none}}
+@media (max-width:700px){.unlock-btn{min-height:50px;padding:12px 20px;font-size:13.5px;width:min(290px,100vw - 64px);letter-spacing:.03em}}
