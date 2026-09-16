@@ -7,6 +7,9 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- HOTMART - Sales Funnel Widget Script -->
+  <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
   <style>
     :root {
       --bg: #f7f7f4;
@@ -1182,6 +1185,7 @@
     // página, para que ya esté lista cuando el chat llegue a la oferta.
     let hotmartLibPromise = null;
     function loadHotmartLib() {
+      if (window.checkoutElements) return Promise.resolve();
       if (!hotmartLibPromise) {
         hotmartLibPromise = new Promise(function (resolve, reject) {
           const tag = document.createElement("script");

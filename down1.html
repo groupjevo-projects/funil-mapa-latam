@@ -3,423 +3,585 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pompoarismo de las Diosas | Condición especial</title>
+  <title>Pompoarismo de las Diosas | Condición Especial</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <style>
-    /* Paleta y tipografía de la página de ventas (style.css) */
+    /* Identidad visual, tipografía y paleta idêntica al Upsell 1 (up1.html) */
     :root {
-      --black: #17120f;
-      --panel: #1c1613;
-      --panel-2: #221a16;
-      --cream: #fff0dd;
-      --ink: #201714;
-      --red: #b9473c;
-      --green: #22c55e;
-      --accent: #e2a24f;
-      --muted: #a2907f;
-      --line: #3a322c;
+      --bg: #f7f7f4;
+      --surface: #ffffff;
+      --surface-soft: #fff4f1;
+      --ink: #211f20;
+      --muted: #665f61;
+      --line: #dfd7d3;
+      --red: #d83a2f;
+      --red-dark: #a32620;
+      --teal: #153d3a;
+      --teal-soft: #e8f0ee;
+      --gold: #b9822d;
+      --pink: #f04c9a;
+      --green: #25d366;
+      --green-dark: #15803d;
+      --shadow: 0 20px 60px rgba(29, 28, 27, 0.13);
+      --radius: 8px;
     }
 
-    * { box-sizing: border-box; }
-    html { background: var(--black); scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      width: 100%;
+      max-width: 100%;
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
     body {
+      min-height: 100vh;
+      width: 100%;
+      max-width: 100%;
       margin: 0;
-      background: var(--black);
-      color: var(--cream);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      letter-spacing: 0;
+      overflow-x: hidden;
+      background:
+        linear-gradient(180deg, rgba(216, 58, 47, 0.08), rgba(21, 61, 58, 0.04) 32%, transparent 72%),
+        var(--bg);
       -webkit-font-smoothing: antialiased;
     }
 
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
     .page {
-      width: 100%;
-      max-width: 600px;
+      width: min(720px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 0 22px;
+      padding: 24px 0 60px;
+      display: grid;
+      gap: 24px;
     }
 
-    section { padding: 40px 0; }
-    section + section { border-top: 1px solid var(--line); }
+    /* ---------- Barra superior de estado ---------- */
+    .topline-wrap {
+      text-align: center;
+    }
 
-    .kicker,
-    .section-kicker {
-      display: flex;
+    .topline {
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin: 0 0 18px;
-      color: var(--accent);
-      font-size: 0.72rem;
+      gap: 7px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: rgba(37, 211, 102, 0.12);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: var(--green-dark);
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .kicker::before {
-      content: "";
-      width: 28px;
-      height: 1px;
-      background: var(--accent);
+
+    .topline-check {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+    }
+
+    /* ---------- Hero / Encabezado ---------- */
+    .hero {
+      text-align: center;
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+    }
+
+    @keyframes highlightShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      margin: 0;
+      padding: 5px 11px;
+      color: #211f20;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #fff06a, #ffb35c, #ff7670, #ffd86b, #fff06a);
+      background-size: 320% 100%;
+      box-shadow: 0 0 0 1px rgba(163, 38, 32, 0.1), 0 8px 22px rgba(216, 58, 47, 0.16);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.36);
+      animation: highlightShift 1800ms linear infinite;
     }
 
     h1 {
-      margin: 0 0 20px;
-      color: var(--cream);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      font-size: clamp(30px, 8vw, 46px);
-      line-height: 1.12;
+      margin: 0;
+      font-size: clamp(1.85rem, 5vw, 2.65rem);
+      line-height: 1.1;
+      font-weight: 900;
       letter-spacing: -0.02em;
+      color: var(--ink);
       text-wrap: balance;
     }
-    h1 em,
-    h3 em { color: var(--accent); font-style: italic; }
 
-    .lead {
+    .danger-highlight {
+      color: var(--red-dark);
+    }
+
+    .hero-lead {
       margin: 0;
+      max-width: 54ch;
       color: var(--muted);
-      font-size: 1rem;
-    }
-
-    /* ---------- Tarjeta de oferta ---------- */
-    .offer-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: linear-gradient(180deg, var(--panel-2), var(--panel));
-      padding: 26px 22px 24px;
-      text-align: center;
-    }
-
-    .offer-label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-    .offer-label::after {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .offer-card h2 {
-      margin: 0;
-      color: var(--cream);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      font-size: clamp(26px, 6.4vw, 34px);
-      line-height: 1.1;
-    }
-    .offer-card h2 em { color: var(--accent); font-style: italic; }
-
-    .offer-name-sub {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-family: Georgia, "Times New Roman", serif;
-      font-style: italic;
       font-size: 1.05rem;
+      line-height: 1.55;
     }
 
-    .offer-desc {
-      max-width: 34ch;
-      margin: 14px auto 0;
-      color: var(--muted);
-      font-size: 0.92rem;
+    /* ---------- Tarjeta de Oferta (Idéntica a la burbuja de up1.html) ---------- */
+    .card-shell {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
     }
 
-    .price {
+    .offer-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #17131a;
+      color: #f5edf2;
+    }
+
+    .offer-head strong {
+      display: block;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: #f5edf2;
+    }
+
+    .offer-head span {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.94rem;
+      color: #b9aeb8;
+    }
+
+    .offer-body {
+      padding: 24px 22px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .stack {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .stack li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 12px;
+      align-items: start;
+      font-size: 0.95rem;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--pink);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .price-box {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
-      margin: 22px 0 8px;
-    }
-    .price-old {
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-decoration: line-through;
-    }
-    .price-now {
-      color: var(--cream);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      font-size: clamp(38px, 10vw, 52px);
-      line-height: 1;
-    }
-    .price-tag {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      gap: 4px;
+      text-align: center;
     }
 
-    .discount-badge {
+    .price-box del {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .price-main {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .price-now {
+      color: var(--red-dark);
+      font-size: clamp(2.2rem, 6vw, 3rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .price-tag {
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .discount-pill {
       display: inline-block;
-      margin: 0 0 20px;
-      padding: 5px 12px;
+      margin-top: 6px;
+      padding: 4px 10px;
       border-radius: 999px;
       background: var(--red);
       color: #fff;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
-    /* ---------- Botones ---------- */
-    .checkout-btn {
-      display: block;
-      width: 100%;
-      padding: 17px 20px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--green);
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 800;
-      font-size: clamp(14px, 3.4vw, 16px);
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
+    /* ---------- Contenedor del Widget Hotmart ---------- */
+    .widget-container {
+      margin-top: 6px;
+      padding: 18px;
+      border: 1px solid rgba(240, 76, 154, 0.35);
+      border-radius: var(--radius);
+      background: #100e13;
+      color: #f5edf2;
+      display: grid;
+      gap: 12px;
+    }
+
+    .slot-label {
+      font-size: 0.86rem;
+      color: #b9aeb8;
       text-align: center;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    #hotmart-sales-funnel {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    #hotmart-sales-funnel:empty {
+      min-height: 84px;
+      display: grid;
+      place-items: center;
+    }
+
+    #hotmart-sales-funnel:empty::after {
+      content: "Cargando opciones de pago seguro de Hotmart…";
+      color: #b9aeb8;
+      font-size: 0.92rem;
+    }
+
+    #hotmart-sales-funnel iframe,
+    #hotmart-sales-funnel img {
+      width: 100%;
+      max-width: 100%;
+      border: 0;
+      display: block;
+    }
+
+    #hotmart-fallback {
+      display: grid;
+      gap: 10px;
+      text-align: center;
+    }
+
+    #hotmart-fallback[hidden] {
+      display: none;
+    }
+
+    .fb-btn {
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 6px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-      animation: ctaPulse 2.4s infinite;
-    }
-    .checkout-btn:hover,
-    .checkout-btn:focus-visible { background: #1eb257; outline: 0; }
-
-    @keyframes ctaPulse {
-      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
-      70% { box-shadow: 0 0 0 16px rgba(34, 197, 94, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    .cta-note {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-    .secure {
-      margin: 4px 0 16px;
-      color: rgba(255, 240, 221, 0.4);
-      font-size: 0.72rem;
-    }
-
-    .decline {
+    .decline-link {
       display: block;
       width: 100%;
-      margin: 0;
-      padding: 8px 4px;
+      margin: 8px 0 0;
+      padding: 8px;
       border: 0;
       background: none;
       color: var(--muted);
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.86rem;
       text-align: center;
       text-decoration: underline;
       text-underline-offset: 3px;
       cursor: pointer;
-    }
-    .decline:hover { color: var(--cream); }
-
-    /* ---------- Secciones de texto ---------- */
-    .section-kicker { color: var(--muted); }
-    .section-kicker::before {
-      content: "";
-      width: 28px;
-      height: 1px;
-      background: var(--muted);
+      transition: color 0.2s ease;
     }
 
-    h3 {
-      margin: 0 0 16px;
-      color: var(--cream);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      font-size: clamp(22px, 5.6vw, 30px);
-      line-height: 1.2;
-      text-wrap: balance;
+    .decline-link:hover {
+      color: var(--ink);
     }
-    .ds-why p,
-    .ds-final p { margin: 0; color: var(--muted); font-size: 0.96rem; }
 
-    .ds-final .checkout-btn { margin-top: 22px; }
-    .ds-final .decline { margin-top: 14px; }
-
-    /* ---------- Widget de Hotmart ---------- */
-    #hotmartMount {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.25);
+    /* ---------- Sección de mensaje personal (Sofía Vilar) ---------- */
+    .author-note {
       border: 1px solid var(--line);
-    }
-    #hotmartFallback p {
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-    .fb-btn {
-      padding: 8px 16px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: var(--panel-2);
-      color: var(--cream);
-      cursor: pointer;
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 18px;
+      align-items: start;
     }
 
-    /* ---------- Pie ---------- */
-    .ds-footer {
-      text-align: center;
-      padding: 34px 0 44px;
+    .author-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--line);
     }
-    .ds-footer .respect {
-      margin: 0 0 20px;
-      color: var(--muted);
-      font-style: italic;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1rem;
+
+    .author-text h3 {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--ink);
     }
-    .ds-footer .brand {
+
+    .author-text p {
       margin: 0;
-      color: var(--cream);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-    }
-    .ds-footer .brand-sub {
-      margin: 6px 0 0;
+      font-size: 0.94rem;
       color: var(--muted);
-      font-size: 0.82rem;
+      line-height: 1.5;
     }
-    .ds-footer .copy {
-      margin: 16px 0 0;
-      color: rgba(255, 240, 221, 0.3);
-      font-size: 0.74rem;
+
+    /* ---------- Garantía ---------- */
+    .guarantee-box {
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      background: var(--teal-soft);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .guarantee-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .guarantee-text strong {
+      display: block;
+      color: var(--teal);
+      font-size: 0.96rem;
+      font-weight: 800;
+    }
+
+    .guarantee-text p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      padding-top: 16px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 16px 0 40px;
+      }
+      .author-note {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+      .guarantee-box {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <section class="ds-intro">
-      <p class="kicker">Una condición especial para ti</p>
-      <h1>Sé que el precio quizá te hizo <em>pensarlo dos veces.</em></h1>
-      <p class="lead">Por eso, antes de que te vayas, conseguí liberar una condición especial para que la inversión no sea el motivo de dejar esta experiencia de Pompoarismo para después.</p>
+    
+    <!-- Topline -->
+    <div class="topline-wrap">
+      <div class="topline">
+        <span class="topline-check">✓</span>
+        <span>Tu acceso principal al Mapa del Placer está confirmado</span>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" aria-label="Condición especial de Pompoarismo">
+      <div class="hero-kicker">Oportunidad Única · 50% OFF</div>
+      <h1>Sé que el precio te hizo <span class="danger-highlight">pensarlo dos veces.</span></h1>
+      <p class="hero-lead">
+        No quiero que la inversión te impida aprender a continuar cuando el momento avanza.
+        Por eso liberé esta condición especial con 50% de descuento directo para que tengas acceso inmediato a las técnicas.
+      </p>
     </section>
 
-    <section class="ds-offer">
-      <div class="offer-card">
-        <p class="offer-label">Condición especial liberada</p>
-        <h2>Pompoarismo <em>de las Diosas</em></h2>
-        <p class="offer-name-sub">El Método Guiado de Sofía Vilar</p>
-        <p class="offer-desc">El acceso esencial a las técnicas prácticas de contracción, relajación y el movimiento APERTA E SOLTA para tener control total del ritmo en la intimidad.</p>
+    <!-- Card de Oferta (Estructura Pompoarismo) -->
+    <section class="card-shell" aria-label="Oferta Pompoarismo de las Diosas">
+      <div class="offer-head">
+        <strong>Pompoarismo de las Diosas · Acceso Esencial</strong>
+        <span>La etapa que completa el Mapa cuando las manos salen de escena.</span>
+      </div>
 
-        <div class="price">
-          <span class="price-old">de US$29,00</span>
-          <span class="price-now">US$14,50</span>
-          <span class="price-tag">A LA VISTA</span>
+      <div class="offer-body">
+        <ul class="stack">
+          <li>
+            <span class="check">✓</span>
+            <span><strong>25 técnicas prácticas</strong> de contracción, relajación, respiración y ritmo guiadas paso a paso.</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span><strong>Control Doble:</strong> movimiento por fuera + conciencia por dentro para controlar los tiempos.</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span><strong>El movimiento APERTA E SOLTA:</strong> cómo sincronizar y prolongar el clímax sin improvisar.</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span><strong>Mapa visual con 15 posiciones</strong> prácticas para aplicar de inmediato.</span>
+          </li>
+          <li>
+            <span class="check">✓</span>
+            <span><strong>Garantía total de 7 días:</strong> si sientes que no es para ti, reembolso al 100% sin preguntas.</span>
+          </li>
+        </ul>
+
+        <!-- Caja de Precio -->
+        <div class="price-box">
+          <del>Precio normal: US$29,00</del>
+          <div class="price-main">
+            <span class="price-now">US$14,50</span>
+            <span class="price-tag">pago único · 50% de descuento</span>
+          </div>
+          <span class="discount-pill">CONDICIÓN EXCEPCIONAL POR TIEMPO LIMITADO</span>
         </div>
-        <span class="discount-badge">50% DE DESCUENTO EXCEPCIONAL</span>
 
-        <button class="checkout-btn" type="button" data-checkout>Sí, quiero el Pompoarismo con 50% OFF</button>
-        <p class="cta-note">Pago único · sin cuotas · acceso inmediato</p>
-        <p class="secure">Pago seguro procesado por Hotmart</p>
-        <button class="decline" type="button" data-decline>No, gracias. Prefiero continuar al acceso de mi compra.</button>
-
-        <div id="hotmartMount" hidden>
+        <!-- HOTMART - Sales Funnel Widget -->
+        <div class="widget-container">
+          <p class="slot-label">Confirma tu compra de 1 clic con Hotmart</p>
+          
+          <!--- sales funnel container --->
           <div id="hotmart-sales-funnel"></div>
-          <div id="hotmartFallback" hidden>
-            <p>No pudimos cargar las opciones de pago.</p>
-            <button class="fb-btn" type="button" id="fbRetry">Reintentar</button>
+
+          <div id="hotmart-fallback" hidden>
+            <p class="slot-label">No pudimos cargar automáticamente el widget de pago.</p>
+            <button class="fb-btn" type="button" onclick="window.location.reload()">Reintentar</button>
           </div>
         </div>
+
+        <!--- script load and setup --->
+        <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+        <script>
+          checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
+        </script>
+        <!-- HOTMART - Sales Funnel Widget -->
+
+        <!-- Enlace de recusa -->
+        <button class="decline-link" type="button" id="declineBtn">
+          No, gracias. Prefiero continuar al acceso de mi compra sin esta condición.
+        </button>
       </div>
     </section>
 
-    <section class="ds-why">
-      <p class="section-kicker">¿Por qué existe esta condición?</p>
-      <h3>No es un nuevo cobro.<br><em>Es una nueva posibilidad.</em></h3>
-      <p>Sé que cada persona vive un momento diferente. Por eso esta condición del 50% de descuento fue pensada para reducir la barrera de la inversión y permitirte aprender las técnicas a tu ritmo, sin dejar esta decisión para un futuro indefinido.</p>
+    <!-- Nota personal de Sofía Vilar -->
+    <section class="author-note">
+      <img src="/upsell1-sofia.webp" alt="Sofía Vilar" class="author-avatar">
+      <div class="author-text">
+        <h3>Un mensaje de Sofía Vilar</h3>
+        <p>
+          "El Mapa del Placer te enseña a despertar con las manos, pero el Pompoarismo es lo que te permite dominar el ritmo cuando la intimidad se profundiza. Esta condición reducida fue creada para que des ese paso sin dudas."
+        </p>
+      </div>
     </section>
 
-    <section class="ds-final">
-      <p class="section-kicker">La decisión sigue siendo tuya</p>
-      <h3>Si tiene sentido para ti,<br><em>esta condición está disponible ahora.</em></h3>
-      <p>Puedes acceder al método de Pompoarismo por esta condición especial a la vista, o continuar directamente a tu acceso.</p>
-      <button class="checkout-btn" type="button" data-checkout>Quiero aprovechar el descuento</button>
-      <button class="decline" type="button" data-decline>No, gracias. Voy a seguir a mi acceso.</button>
+    <!-- Garantía -->
+    <section class="guarantee-box">
+      <div class="guarantee-icon">🛡️</div>
+      <div class="guarantee-text">
+        <strong>Garantía Incondicional de 7 Días</strong>
+        <p>Tienes una semana completa para ver los módulos y probar los ejercicios. Si sientes que no es lo tuyo, solicitas el reembolso dentro de la plataforma y te devolvemos el 100%.</p>
+      </div>
     </section>
 
-    <footer class="ds-footer">
-      <p class="respect">Está bien. Tu decisión merece ser respetada.</p>
-      <p class="brand">Pompoarismo de las Diosas · Sofía Vilar</p>
-      <p class="brand-sub">Técnicas de control, presencia y ritmo íntimo.</p>
-      <p class="copy">© 2026</p>
+    <!-- Footer -->
+    <footer>
+      <p>
+        Pompoarismo de las Diosas · Sofía Vilar<br>
+        Mapa del Placer Masculino · Todos los derechos reservados © 2026
+      </p>
     </footer>
+
   </main>
 
   <script>
-    // El botón verde monta el widget de Sales Funnel de Hotmart (checkout de 1 clic).
-    // Hotmart identifica la oferta por el token de compra que trae la URL desde el paso anterior.
-    const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
     const DECLINE_URL = "/tks";
-
-    let hotmartLibPromise = null;
-    function loadHotmartElements() {
-      if (!hotmartLibPromise) {
-        hotmartLibPromise = new Promise(function (resolve, reject) {
-          const s = document.createElement("script");
-          s.src = HOTMART_ELEMENTS_LIB;
-          s.async = true;
-          s.onload = resolve;
-          s.onerror = reject;
-          document.head.appendChild(s);
-        });
-      }
-      return hotmartLibPromise;
-    }
-    loadHotmartElements().catch(function () {});
-
-    const mount = document.getElementById("hotmartMount");
-    const funnelEl = document.getElementById("hotmart-sales-funnel");
-    const fallback = document.getElementById("hotmartFallback");
-    let opened = false;
-
-    function openCheckout() {
-      if (opened) {
-        mount.scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-      }
-      opened = true;
-      mount.hidden = false;
-      document.getElementById("fbRetry").addEventListener("click", function () {
-        window.location.reload();
-      });
-      loadHotmartElements()
-        .then(function () {
-          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
-        })
-        .catch(function () { fallback.hidden = false; });
-      window.setTimeout(function () {
-        if (!funnelEl.childElementCount) fallback.hidden = false;
-      }, 7000);
-      mount.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-
-    document.querySelectorAll("[data-checkout]").forEach(function (b) {
-      b.addEventListener("click", openCheckout);
+    document.getElementById("declineBtn").addEventListener("click", function () {
+      window.location.href = DECLINE_URL;
     });
-    document.querySelectorAll("[data-decline]").forEach(function (b) {
-      b.addEventListener("click", function () { window.location.href = DECLINE_URL; });
-    });
+
+    // Si por red o adblocker el widget tarda más de 7 segundos, mostrar fallback
+    window.setTimeout(function () {
+      const funnel = document.getElementById("hotmart-sales-funnel");
+      const fallback = document.getElementById("hotmart-fallback");
+      if (funnel && !funnel.childElementCount && fallback) {
+        fallback.hidden = false;
+      }
+    }, 7000);
   </script>
 </body>
 </html>
