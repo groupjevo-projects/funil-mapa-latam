@@ -19,9 +19,9 @@ checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
 
 | Etapa      | Rota          | Arquivo          | Status                    |
 |------------|---------------|------------------|---------------------------|
-| Upsell 1   | `/up1`        | `up1.html`       | "Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días"; página estilo VSL; widget `salesFunnel`; CTA no 7:02; falta player VTURB e publicar oferta no Hotmart |
-| Downsell 1 | `/down1`      | `down1.html`     | mesmo produto do UP1, condição especial US$19,50 (só à vista); design adaptado do `up1.html`; widget `salesFunnel`; falta player VTURB e publicar oferta no Hotmart |
-| Upsell 2   | `/up2`        | `upsell2.html`   | copy Pompoarismo de las Diosas; widget `salesFunnel` no botão verde; falta cadastrar oferta no Hotmart |
+| Upsell 1   | `/up1`        | `up1.html`       | Pompoarismo de las Diosas (chat guiado de Sofía Vilar); widget `salesFunnel`; recusa leva ao `/down1` |
+| Downsell 1 | `/down1`      | `down1.html`     | Pompoarismo de las Diosas (condición especial 50% OFF); widget `salesFunnel`; recusa leva ao `/tks` |
+| Upsell 2   | `/up2`        | `upsell2.html`   | Método de las Diosas / módulo avanzado; widget `salesFunnel` |
 | Downsell 2 | `/down2`      | —                | aguardando a estrutura    |
 
 > Upsell 2 = **Pompoarismo de las Diosas** (US$47 à vista ou 5x de US$15,67, garantia 7 dias, âncora US$147).

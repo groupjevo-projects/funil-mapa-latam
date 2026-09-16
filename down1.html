@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Protocolo Reconexión en Pareja: El Plan Guiado de 14 Días | Condición especial</title>
+  <title>Pompoarismo de las Diosas | Condición especial</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -175,8 +175,7 @@
     }
 
     /* ---------- Botones ---------- */
-    .checkout-btn,
-    #kiwify-upsell-trigger-EvBLpvj {
+    .checkout-btn {
       display: block;
       width: 100%;
       padding: 17px 20px;
@@ -195,9 +194,7 @@
       animation: ctaPulse 2.4s infinite;
     }
     .checkout-btn:hover,
-    .checkout-btn:focus-visible,
-    #kiwify-upsell-trigger-EvBLpvj:hover,
-    #kiwify-upsell-trigger-EvBLpvj:focus-visible { background: #1eb257; outline: 0; }
+    .checkout-btn:focus-visible { background: #1eb257; outline: 0; }
 
     @keyframes ctaPulse {
       0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
@@ -216,8 +213,7 @@
       font-size: 0.72rem;
     }
 
-    .decline,
-    #kiwify-upsell-cancel-trigger-EvBLpvj {
+    .decline {
       display: block;
       width: 100%;
       margin: 0;
@@ -232,8 +228,7 @@
       text-underline-offset: 3px;
       cursor: pointer;
     }
-    .decline:hover,
-    #kiwify-upsell-cancel-trigger-EvBLpvj:hover { color: var(--cream); }
+    .decline:hover { color: var(--cream); }
 
     /* ---------- Secciones de texto ---------- */
     .section-kicker { color: var(--muted); }
@@ -259,8 +254,27 @@
     .ds-final .checkout-btn { margin-top: 22px; }
     .ds-final .decline { margin-top: 14px; }
 
-    /* ---------- Widget de upsell de 1 clic de Kiwify ---------- */
-    #kiwify-upsell-EvBLpvj { margin-top: 18px; width: 100%; }
+    /* ---------- Widget de Hotmart ---------- */
+    #hotmartMount {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--line);
+    }
+    #hotmartFallback p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .fb-btn {
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel-2);
+      color: var(--cream);
+      cursor: pointer;
+    }
 
     /* ---------- Pie ---------- */
     .ds-footer {
@@ -295,34 +309,37 @@
 </head>
 <body>
   <main class="page">
-    <!-- BORRADOR — refinar copy -->
-
     <section class="ds-intro">
       <p class="kicker">Una condición especial para ti</p>
       <h1>Sé que el precio quizá te hizo <em>pensarlo dos veces.</em></h1>
-      <p class="lead">Por eso, antes de que te vayas, conseguí liberar una condición diferente para que la inversión no sea el motivo de dejar esta experiencia para después.</p>
+      <p class="lead">Por eso, antes de que te vayas, conseguí liberar una condición especial para que la inversión no sea el motivo de dejar esta experiencia de Pompoarismo para después.</p>
     </section>
 
     <section class="ds-offer">
       <div class="offer-card">
         <p class="offer-label">Condición especial liberada</p>
-        <h2>Protocolo Reconexión <em>en Pareja</em></h2>
-        <p class="offer-name-sub">El Plan Guiado de 14 Días</p>
-        <p class="offer-desc">El mismo acceso completo, ahora por una condición que encaja mejor en este momento.</p>
+        <h2>Pompoarismo <em>de las Diosas</em></h2>
+        <p class="offer-name-sub">El Método Guiado de Sofía Vilar</p>
+        <p class="offer-desc">El acceso esencial a las técnicas prácticas de contracción, relajación y el movimiento APERTA E SOLTA para tener control total del ritmo en la intimidad.</p>
 
         <div class="price">
-          <span class="price-old">de US$39,00</span>
-          <span class="price-now">US$19,50</span>
+          <span class="price-old">de US$29,00</span>
+          <span class="price-now">US$14,50</span>
           <span class="price-tag">A LA VISTA</span>
         </div>
         <span class="discount-badge">50% DE DESCUENTO EXCEPCIONAL</span>
 
-        <p class="cta-note">Pago único · sin cuotas</p>
-        <p class="secure">Pago seguro procesado por Kiwify</p>
+        <button class="checkout-btn" type="button" data-checkout>Sí, quiero el Pompoarismo con 50% OFF</button>
+        <p class="cta-note">Pago único · sin cuotas · acceso inmediato</p>
+        <p class="secure">Pago seguro procesado por Hotmart</p>
+        <button class="decline" type="button" data-decline>No, gracias. Prefiero continuar al acceso de mi compra.</button>
 
-        <div id="kiwify-upsell-EvBLpvj" data-upsell-url="https://mapadelplacer.site/up2" data-downsell-url="" style="--kiwify-upsell-accept-bg:#27AF60;--kiwify-upsell-accept-color:#FFFFFF">
-          <button id="kiwify-upsell-trigger-EvBLpvj">Sí, quiero el Protocolo Reconexión con 50% OFF</button>
-          <div id="kiwify-upsell-cancel-trigger-EvBLpvj">No, quiero depender solo de mis manos</div>
+        <div id="hotmartMount" hidden>
+          <div id="hotmart-sales-funnel"></div>
+          <div id="hotmartFallback" hidden>
+            <p>No pudimos cargar las opciones de pago.</p>
+            <button class="fb-btn" type="button" id="fbRetry">Reintentar</button>
+          </div>
         </div>
       </div>
     </section>
@@ -330,47 +347,79 @@
     <section class="ds-why">
       <p class="section-kicker">¿Por qué existe esta condición?</p>
       <h3>No es un nuevo cobro.<br><em>Es una nueva posibilidad.</em></h3>
-      <p>Sé que cada persona vive un momento diferente. Por eso esta condición del 50% de descuento fue pensada para reducir la barrera de la inversión y permitirte empezar a tu ritmo, sin dejar esta decisión para un futuro indefinido.</p>
+      <p>Sé que cada persona vive un momento diferente. Por eso esta condición del 50% de descuento fue pensada para reducir la barrera de la inversión y permitirte aprender las técnicas a tu ritmo, sin dejar esta decisión para un futuro indefinido.</p>
     </section>
 
     <section class="ds-final">
       <p class="section-kicker">La decisión sigue siendo tuya</p>
       <h3>Si tiene sentido para ti,<br><em>esta condición está disponible ahora.</em></h3>
-      <p>Puedes acceder al plan completo por US$19,50 a la vista, o seguir sin esta oferta.</p>
+      <p>Puedes acceder al método de Pompoarismo por esta condición especial a la vista, o continuar directamente a tu acceso.</p>
       <button class="checkout-btn" type="button" data-checkout>Quiero aprovechar el descuento</button>
-      <button class="decline" type="button" data-decline>No, gracias. Voy a seguir sin el Protocolo Reconexión.</button>
+      <button class="decline" type="button" data-decline>No, gracias. Voy a seguir a mi acceso.</button>
     </section>
 
     <footer class="ds-footer">
       <p class="respect">Está bien. Tu decisión merece ser respetada.</p>
-      <p class="brand">Protocolo Reconexión en Pareja</p>
-      <p class="brand-sub">Un plan de reconexión, presencia y ritmo en pareja.</p>
+      <p class="brand">Pompoarismo de las Diosas · Sofía Vilar</p>
+      <p class="brand-sub">Técnicas de control, presencia y ritmo íntimo.</p>
       <p class="copy">© 2026</p>
     </footer>
   </main>
 
   <script>
-    // El checkout es el widget de upsell de 1 clic de Kiwify (más abajo, en
-    // la tarjeta de oferta). No lleva enlace propio: Kiwify reconoce la
-    // compra anterior y cobra en un clic. A dónde va después se declara en
-    // el propio <div>: data-upsell-url si acepta.
-    // A dónde va quien rechaza la condición desde el CTA final: su acceso
-    // ya comprado.
+    // El botón verde monta el widget de Sales Funnel de Hotmart (checkout de 1 clic).
+    // Hotmart identifica la oferta por el token de compra que trae la URL desde el paso anterior.
+    const HOTMART_ELEMENTS_LIB = "https://checkout.hotmart.com/lib/hotmart-checkout-elements.js";
     const DECLINE_URL = "/tks";
-    const kiwifyWidget = document.getElementById("kiwify-upsell-EvBLpvj");
 
-    // El segundo botón (al final de la página) repite la misma oferta;
-    // en vez de duplicar el widget de Kiwify, sólo lleva hasta él.
-    document.querySelectorAll("[data-checkout]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        kiwifyWidget.scrollIntoView({ behavior: "smooth", block: "center" });
+    let hotmartLibPromise = null;
+    function loadHotmartElements() {
+      if (!hotmartLibPromise) {
+        hotmartLibPromise = new Promise(function (resolve, reject) {
+          const s = document.createElement("script");
+          s.src = HOTMART_ELEMENTS_LIB;
+          s.async = true;
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+      return hotmartLibPromise;
+    }
+    loadHotmartElements().catch(function () {});
+
+    const mount = document.getElementById("hotmartMount");
+    const funnelEl = document.getElementById("hotmart-sales-funnel");
+    const fallback = document.getElementById("hotmartFallback");
+    let opened = false;
+
+    function openCheckout() {
+      if (opened) {
+        mount.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      opened = true;
+      mount.hidden = false;
+      document.getElementById("fbRetry").addEventListener("click", function () {
+        window.location.reload();
       });
+      loadHotmartElements()
+        .then(function () {
+          window.checkoutElements.init("salesFunnel").mount("#hotmart-sales-funnel");
+        })
+        .catch(function () { fallback.hidden = false; });
+      window.setTimeout(function () {
+        if (!funnelEl.childElementCount) fallback.hidden = false;
+      }, 7000);
+      mount.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    document.querySelectorAll("[data-checkout]").forEach(function (b) {
+      b.addEventListener("click", openCheckout);
     });
     document.querySelectorAll("[data-decline]").forEach(function (b) {
       b.addEventListener("click", function () { window.location.href = DECLINE_URL; });
     });
   </script>
-
-  <script src="https://snippets.kiwify.com/upsell-v2/upsell.min.js"></script>
 </body>
 </html>
