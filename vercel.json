@@ -1,20 +1,34 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/upsell1",
-      "destination": "/upsell1.html"
+      "destination": "/up1",
+      "permanent": true
     },
     {
       "source": "/upsell1/",
-      "destination": "/upsell1.html"
+      "destination": "/up1",
+      "permanent": true
     },
     {
       "source": "/upsell2",
-      "destination": "/upsell2.html"
+      "destination": "/up2",
+      "permanent": true
     },
     {
       "source": "/upsell2/",
-      "destination": "/upsell2.html"
+      "destination": "/up2",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/up1",
+      "destination": "/up1.html"
+    },
+    {
+      "source": "/up1/",
+      "destination": "/up1.html"
     },
     {
       "source": "/up2",
@@ -23,14 +37,6 @@
     {
       "source": "/up2/",
       "destination": "/upsell2.html"
-    },
-    {
-      "source": "/up1",
-      "destination": "/up1.html"
-    },
-    {
-      "source": "/up1/",
-      "destination": "/up1.html"
     },
     {
       "source": "/down1",
