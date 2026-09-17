@@ -11,6 +11,28 @@
   <!-- UTMify: persistência de UTMs nas páginas pós-compra para atribuição -->
   <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" async defer data-utmify-prevent-subids></script>
 
+  <!-- Group Jevo Funnel Telemetry: safe non-blocking up1_view tracking -->
+  <script>
+    (function () {
+      try {
+        var SUPABASE_URL = 'https://ahtvpfunglhhtfpefsyi.supabase.co';
+        var SUPABASE_KEY = 'sb_publishable_MuW-XY0uxvizJ3zqtJKy5A_YMdJNrln';
+        var sessionId = localStorage.getItem('funnel_session_id') || ('sess_' + Math.random().toString(36).substring(2, 12));
+        fetch(SUPABASE_URL + '/rest/v1/funnel_events', {
+          method: 'POST',
+          keepalive: true,
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify([{ offer_id: 'latam', event_type: 'up1_view', session_id: sessionId }])
+        }).catch(function () {});
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- HOTMART - Sales Funnel Widget Script -->
   <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
   <style>
