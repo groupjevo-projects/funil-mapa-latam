@@ -60,3 +60,18 @@
 @keyframes unlockPulse{0%,100%{transform:scale(1);box-shadow:0 12px 28px #0004,inset 0 1px #ffffff55,0 0 0 0 #38c75966}50%{transform:scale(1.035);box-shadow:0 16px 34px #0005,inset 0 1px #ffffff55,0 0 0 12px #38c75900}}
 @media (prefers-reduced-motion:reduce){.unlock-btn{animation:none}}
 @media (max-width:700px){.unlock-btn{min-height:50px;padding:12px 20px;font-size:13.5px;width:min(290px,100vw - 64px);letter-spacing:.03em}}
+
+/* VTurb button integration & pulse animation guarantee */
+@keyframes vturb-native-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.smartplayer-anchor-button[class*="pulse-"],
+vturb-anchor-button a.smartplayer-anchor-button[class*="pulse-"] {
+  animation: vturb-native-pulse 0.8s infinite ease-in-out !important;
+  display: inline-block !important;
+}
+.vsl-player, .vsl-embed, vturb-smartplayer {
+  background: transparent !important;
+}
